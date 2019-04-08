@@ -13,6 +13,7 @@ MalePlayerNameArray:
 	db "RED@"
 	db "BLUE@"
 	db "FIRE@"
+	db "JACK@"
 	db 2 ; displacement
 	db " NAME @" ; title
 
@@ -31,5 +32,6 @@ FemalePlayerNameArray:
 	db "GREEN@"
 	db "YELLOW@"
 	db "LEAF@"
+	db "JACKIE@"
 	db 2 ; displacement
 	db " NAME @" ; title
