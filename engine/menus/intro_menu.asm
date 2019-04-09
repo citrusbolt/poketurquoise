@@ -776,9 +776,9 @@ NamePlayer:
 	ret
 
 .Chris:
-	db "CHRIS@@@@@@"
+	db "RED@@@@@@"
 .Kris:
-	db "KRIS@@@@@@@"
+	db "GREEN@@@@@@@"
 
 Unreferenced_Function60e9:
 	call LoadMenuHeader
@@ -935,7 +935,7 @@ Intro_PlacePlayerSprite:
 	ld a, [wPlayerGender]
 	bit PLAYERGENDER_FEMALE_F, a
 	jr z, .male
-	ld b, PAL_OW_BLUE
+	ld b, PAL_OW_GREEN
 .male
 	ld a, b
 
