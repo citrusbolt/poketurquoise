@@ -271,8 +271,8 @@ InitializeMagikarpHouse:
 	db "RALPH@"
 
 InitializeNPCNames:
-	ld hl, .Rival
-	ld de, wRivalName
+;	ld hl, .Rival
+;	ld de, wRivalName
 	call .Copy
 
 	ld hl, .Mom
@@ -625,7 +625,8 @@ Continue_DisplayGameTime:
 	jp PrintNum
 
 OakSpeech:
-	farcall InitClock
+	farcall RestartClock
+;	farcall InitClock
 	call RotateFourPalettesLeft
 	call ClearTileMap
 
@@ -649,7 +650,7 @@ OakSpeech:
 	call RotateThreePalettesRight
 	call ClearTileMap
 
-	ld a, WOOPER
+	ld a, NIDORINO
 	ld [wCurSpecies], a
 	ld [wCurPartySpecies], a
 	call GetBaseData
@@ -672,20 +673,20 @@ OakSpeech:
 	call RotateThreePalettesRight
 	call ClearTileMap
 
-	xor a
-	ld [wCurPartySpecies], a
-	ld a, POKEMON_PROF
-	ld [wTrainerClass], a
-	call Intro_PrepTrainerPic
+;	xor a
+;	ld [wCurPartySpecies], a
+;	ld a, POKEMON_PROF
+;	ld [wTrainerClass], a
+;	call Intro_PrepTrainerPic
 
 	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
 	call GetSGBLayout
 	call Intro_RotatePalettesLeftFrontpic
 
-	ld hl, OakText5
-	call PrintText
+;	ld hl, OakText5
+;	call PrintText
 	call RotateThreePalettesRight
-	call ClearTileMap
+;	call ClearTileMap
 
 	xor a
 	ld [wCurPartySpecies], a
@@ -695,9 +696,29 @@ OakSpeech:
 	call GetSGBLayout
 	call Intro_RotatePalettesLeftFrontpic
 
-	ld hl, OakText6
+	ld hl, OakText5
 	call PrintText
 	call NamePlayer
+	ld hl, OakText5a
+	call PrintText
+
+
+	call Intro_WipeInFrontpic
+	call ClearTileMap
+	call DrawIntroRivalPic
+	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
+	call GetSGBLayout
+	call Intro_RotatePalettesLeftFrontpic
+
+	ld hl, OakText6
+	call PrintText
+	call NameRival
+	farcall DrawIntroPlayerPic
+
+	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
+	call GetSGBLayout
+	call Intro_RotatePalettesLeftFrontpic
+
 	ld hl, OakText7
 	call PrintText
 	ret
@@ -709,7 +730,7 @@ OakText1:
 OakText2:
 	text_far _OakText2
 	text_asm
-	ld a, WOOPER
+	ld a, NIDORINO
 	call PlayMonCry
 	call WaitSFX
 	ld hl, OakText3
@@ -725,6 +746,10 @@ OakText4:
 
 OakText5:
 	text_far _OakText5
+	text_end
+
+OakText5a:
+	text_far _OakText5a
 	text_end
 
 OakText6:
@@ -776,9 +801,118 @@ NamePlayer:
 	ret
 
 .Chris:
-	db "RED@@@@@@"
+	db "RED@"
 .Kris:
-	db "GREEN@@@@@@@"
+	db "GREEN@"
+
+NameRival:
+	farcall MovePlayerPicRight
+	call ShowRivalNamingChoices
+	ld a, [wMenuCursorY]
+	dec a
+	jr z, .NewNameRival
+	call StoreRivalName
+	farcall ApplyMonOrTrainerPals
+	farcall MovePlayerPicLeft
+	ret
+
+
+.NewNameRival:
+	ld b, NAME_RIVAL
+	ld de, wRivalName
+	farcall NamingScreen
+
+	call RotateThreePalettesRight
+	call ClearTileMap
+
+	call LoadFontsExtra
+	call WaitBGMap
+
+
+	xor a
+	ld [wCurPartySpecies], a
+	farcall DrawIntroPlayerPic
+
+	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
+	call GetSGBLayout
+	call RotateThreePalettesLeft
+
+	; default to "BLUE"
+	ld hl, wRivalName
+	ld de, .default
+	call InitName
+	farcall ApplyMonOrTrainerPals
+
+	ret
+
+.default
+	db "BLUE@"
+
+ShowRivalNamingChoices:
+	ld hl, RivalNameMenuHeader
+	call LoadMenuHeader
+	call VerticalMenu
+	ld a, [wMenuCursorY]
+	dec a
+	call CopyNameFromMenu
+	call CloseWindow
+	ret
+
+RivalNameMenuHeader:
+	db MENU_BACKUP_TILES ; flags
+	menu_coords 0, 0, 10, TEXTBOX_Y - 1
+	dw .RivalNames
+	db 1 ; ????
+	db 0 ; default option
+
+.RivalNames:
+	db STATICMENU_CURSOR | STATICMENU_PLACE_TITLE | STATICMENU_DISABLE_B ; flags
+	db 5 ; items
+	db "NEW NAME@"
+RivalNameArray:
+	db "BLUE@"
+	db "GREEN@"
+	db "WATER@"
+	db "JOHN@"
+	db 2 ; displacement
+	db " NAME @" ; title
+
+
+DrawIntroRivalPic:
+; Draw the player pic at (6,4).
+
+; Get class
+	ld e, RIVAL1
+	ld a, [wPlayerGender]
+	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .GotClass
+	ld e, KRIS
+.GotClass:
+	ld a, RIVAL1
+	ld [wTrainerClass], a
+
+; Load pic
+	ld de, RivalPic
+;	ld a, [wPlayerGender]
+;	bit PLAYERGENDER_FEMALE_F, a
+	jr z, .GotPic
+;	ld de, KrisPic
+.GotPic:
+	ld hl, vTiles2
+	ld b, BANK(RivalPic)
+	ld c, 7 * 7 ; dimensions
+	call Get2bpp
+
+; Draw
+	xor a
+	ldh [hGraphicStartTile], a
+	hlcoord 6, 4
+	lb bc, 7, 7
+	predef PlaceGraphic
+	ret
+
+RivalPic:
+INCBIN "gfx/trainers/rival1.2bpp"
 
 Unreferenced_Function60e9:
 	call LoadMenuHeader
@@ -795,6 +929,17 @@ StorePlayerName:
 	ld hl, wPlayerName
 	call ByteFill
 	ld hl, wPlayerName
+	ld de, wStringBuffer2
+	call CopyName2
+	ret
+
+
+StoreRivalName:
+	ld a, "@"
+	ld bc, NAME_LENGTH
+	ld hl, wRivalName
+	call ByteFill
+	ld hl, wRivalName
 	ld de, wStringBuffer2
 	call CopyName2
 	ret
@@ -935,7 +1080,7 @@ Intro_PlacePlayerSprite:
 	ld a, [wPlayerGender]
 	bit PLAYERGENDER_FEMALE_F, a
 	jr z, .male
-	ld b, PAL_OW_BLUE
+	ld b, PAL_OW_GREEN
 .male
 	ld a, b
 

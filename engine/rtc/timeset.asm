@@ -41,14 +41,15 @@ InitClock:
 	call .ClearScreen
 	call WaitBGMap
 	call RotateFourPalettesRight
-	ld hl, Text_WokeUpOak
-	call PrintText
+;	ld hl, Text_WokeUpOak
+;	call PrintText
 	ld hl, wTimeSetBuffer
 	ld bc, wTimeSetBufferEnd - wTimeSetBuffer
 	xor a
 	call ByteFill
 	ld a, 10 ; default hour = 10 AM
 	ld [wInitHourBuffer], a
+
 
 .loop
 	ld hl, Text_WhatTimeIsIt
@@ -113,9 +114,9 @@ InitClock:
 
 .MinutesAreSet:
 	call InitTimeOfDay
-	ld hl, OakText_ResponseToSetTime
-	call PrintText
-	call WaitPressAorB_BlinkCursor
+;	ld hl, OakText_ResponseToSetTime
+;	call PrintText
+;	call WaitPressAorB_BlinkCursor
 	pop af
 	ldh [hInMenu], a
 	ret
@@ -304,9 +305,9 @@ String_oclock:
 
 Text_WhatHrs:
 	; What?@ @
-	text_far UnknownText_0x1bc2fd
+;	text_far UnknownText_0x1bc2fd
 	text_asm
-	hlcoord 1, 16
+	hlcoord 1, 14
 	call DisplayHourOClock
 	ld hl, .QuestionMark
 	ret
@@ -326,9 +327,9 @@ String_min:
 
 Text_WhoaMins:
 	; Whoa!@ @
-	text_far UnknownText_0x1bc31b
+;	text_far UnknownText_0x1bc31b
 	text_asm
-	hlcoord 7, 14
+	hlcoord 1, 14
 	call DisplayMinutesWithMinString
 	ld hl, .QuestionMark
 	ret

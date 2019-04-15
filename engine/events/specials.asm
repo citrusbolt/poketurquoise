@@ -83,18 +83,48 @@ FoundNone:
 	ld [wScriptVar], a
 	ret
 
-NameRival:
-	ld b, NAME_RIVAL
-	ld de, wRivalName
-	farcall _NamingScreen
-	; default to "SILVER"
-	ld hl, wRivalName
-	ld de, .default
-	call InitName
-	ret
+;NameRival:
+;	farcall MovePlayerPicRight
+;	farcall ShowPlayerNamingChoices
+;	ld a, [wMenuCursorY]
+;	dec a
+;	jr z, .NewNameRival
+;	call StorePlayerName
+;	farcall ApplyMonOrTrainerPals
+;	farcall MovePlayerPicLeft
+;	ret
 
-.default
-	db "SILVER@"
+
+;.NewNameRival:
+;	ld b, NAME_RIVAL
+;	ld de, wRivalName
+;	farcall NamingScreen
+
+;	call RotateThreePalettesRight
+;	call ClearTileMap
+
+;	call LoadFontsExtra
+;	call WaitBGMap
+
+
+;	xor a
+;	ld [wCurPartySpecies], a
+;	farcall DrawIntroPlayerPic
+
+;	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
+;	call GetSGBLayout
+;	call RotateThreePalettesLeft
+
+;	; default to "SILVER"
+;	ld hl, wRivalName
+;	ld de, .default
+;	call InitName
+;	farcall ApplyMonOrTrainerPals
+
+;	ret
+
+;.default
+;	db "BLUE@"
 
 NameRater:
 	farcall _NameRater

@@ -1,35 +1,27 @@
 _OakText6::
-	text "Now, what did you"
-	line "say your name was?"
+	text "This is my grand-"
+	line "son. He's been"
+	cont "your rival since"
+	cont "you were a baby."
+
+	para "...Erm, what is"
+	line "his name again?"
 	prompt
 
 _OakText7::
-	text "<PLAYER>, are you"
-	line "ready?"
+	text "<PLAYER>!"
 
 	para "Your very own"
-	line "#MON story is"
-	cont "about to unfold."
-
-	para "You'll face fun"
-	line "times and tough"
-	cont "challenges."
-
+	line "#MON legend is"
+	cont "about to unfold!"
 	para "A world of dreams"
 	line "and adventures"
-
-	para "with #MON"
-	line "awaits! Let's go!"
-
-	para "I'll be seeing you"
-	line "later!"
+	cont "with #MON"
+	cont "awaits! Let's go!"
 	done
 
 UnknownText_0x1c40e6::
-	text "The clock's time"
-	line "may be wrong."
-
-	para "Please reset the"
+	text "Please set the"
 	line "time."
 	prompt
 
@@ -47,7 +39,7 @@ UnknownText_0x1c415b::
 
 UnknownText_0x1c4168::
 	text "The clock has been"
-	line "reset."
+	line "set."
 	done
 
 UnknownText_0x1c4183::
