@@ -713,6 +713,8 @@ OakSpeech:
 	ld hl, OakText6
 	call PrintText
 	call NameRival
+	ld hl, OakText6a
+	call PrintText
 	farcall DrawIntroPlayerPic
 
 	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
@@ -755,6 +757,11 @@ OakText5a:
 OakText6:
 	text_far _OakText6
 	text_end
+
+OakText6a:
+	text_far _OakText6a
+	text_end
+
 
 OakText7:
 	text_far _OakText7

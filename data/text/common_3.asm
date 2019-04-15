@@ -8,6 +8,13 @@ _OakText6::
 	line "his name again?"
 	prompt
 
+_OakText6a::
+	text "That's right! I"
+	line "remember now! His"
+	cont "name is <RIVAL>!"
+	prompt
+
+
 _OakText7::
 	text "<PLAYER>!"
 
