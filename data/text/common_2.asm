@@ -1554,7 +1554,7 @@ _OakText4::
 
 	para "Myself..."
 
-	para "I study  #MON"
+	para "I study #MON"
 	line "as a profession."
 	prompt
 
