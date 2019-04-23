@@ -1,8 +1,8 @@
 ; Functions dealing with rendering and interacting with maps.
 
-ClearUnusedC7E8::
-	ld hl, wUnusedC7E8
-	ld bc, wUnusedC7E8End - wUnusedC7E8
+ClearUnusedMapBuffer::
+	ld hl, wUnusedMapBuffer
+	ld bc, wUnusedMapBufferEnd - wUnusedMapBuffer
 	ld a, 0
 	call ByteFill
 	ret
@@ -1025,13 +1025,13 @@ MapTextbox::
 	rst Bankswitch
 
 	push hl
-	call SpeechTextBox
+	call SpeechTextbox
 	call SafeUpdateSprites
 	ld a, 1
 	ldh [hOAMUpdate], a
 	call ApplyTilemap
 	pop hl
-	call PrintTextBoxText
+	call PrintTextboxText
 	xor a
 	ldh [hOAMUpdate], a
 
@@ -1932,7 +1932,7 @@ ReturnToMapWithSpeechTextbox::
 	call ReloadTilesetAndPalettes
 	hlcoord 0, 12
 	lb bc, 4, 18
-	call TextBox
+	call Textbox
 	ld hl, wVramState
 	set 0, [hl]
 	call UpdateSprites

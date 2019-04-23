@@ -39,7 +39,7 @@ wChannel8:: channel_struct wChannel8 ; c25f
 wCurTrackDuty:: db
 wCurTrackIntensity:: db
 wCurTrackFrequency:: dw
-wc296:: db ; BCD value, dummied out
+wUnusedBCDNumber:: db ; BCD value, dummied out
 wCurNoteDuration:: db ; used in MusicE0 and LoadNote
 
 wCurMusicByte:: db ; c298
@@ -95,7 +95,7 @@ wCryPitch:: dw ; c2b0
 wCryLength:: dw ; c2b2
 
 wLastVolume:: db ; c2b4
-wc2b5:: db ; c2b5
+wUnusedMusicF9Flag:: db ; c2b5
 
 wSFXPriority:: ; c2b6
 ; if nonzero, turn off music when playing sfx
@@ -145,7 +145,7 @@ wDebugFlags:: db
 wGameLogicPaused:: db ; c2cd
 wSpriteUpdatesEnabled:: db
 
-wc2cf:: db ; ????
+wUnusedScriptByteBuffer:: db
 
 wMapTimeOfDay:: db
 
@@ -171,7 +171,8 @@ wPlayerMovement:: db
 wc2e2::
 wMovementObject::
 	db
-wMovementDataPointer:: ds 3 ; dba
+wMovementDataBank:: db
+wMovementDataAddress:: dw
 wc2e6:: ds 4
 wMovementByteWasControlSwitch:: db
 wMovementPointer:: dw ; c2eb
@@ -909,8 +910,10 @@ ENDU ; c7e8
 
 ENDU ; c7e8
 
-wUnusedC7E8:: ds 24
-wUnusedC7E8End::
+; This was a buffer for map-related pointers in the 1997 G/S prototype.
+; See wMapBuffer in pokegold-spaceworld's wram.asm.
+wUnusedMapBuffer:: ds 24
+wUnusedMapBufferEnd::
 
 
 SECTION "Overworld Map", WRAM0
@@ -954,16 +957,30 @@ wPrinterTileMapBuffer:: ds SCREEN_HEIGHT * SCREEN_WIDTH ; ca90
 wPrinterTileMapBufferEnd::
 wPrinterStatus:: db ; cbf8
 	ds 1
-wcbfa:: ds 1
+wcbfa:: db
 wGBPrinterSettings:: db
 	ds 16
 wGameboyPrinterRAMEnd::
 
 NEXTU ; c800
 ; bill's pc data
+wBillsPCData::
 wBillsPCPokemonList::
 ; (species, box number, list index) x30
 	ds 3 * 30
+	ds 720
+wBillsPC_ScrollPosition:: db
+wBillsPC_CursorPosition:: db
+wBillsPC_NumMonsInBox:: db
+wBillsPC_NumMonsOnScreen:: db
+wBillsPC_LoadedBox:: db ; 0 if party, 1 - 14 if box, 15 if active box
+wBillsPC_BackupScrollPosition:: db
+wBillsPC_BackupCursorPosition:: db
+wBillsPC_BackupLoadedBox:: db
+wBillsPC_MonHasMail:: db
+	ds 5
+wBillsPCDataEnd::
+
 
 NEXTU ; c800
 ; Hall of Fame data
@@ -977,9 +994,9 @@ wLinkDataEnd::
 NEXTU ; c800
 ; link data members
 wLinkPlayerName:: ds NAME_LENGTH
-wLinkPartyCount::   db
+wLinkPartyCount:: db
 wLinkPartySpecies:: ds PARTY_LENGTH
-wLinkPartyEnd::     db ; older code doesn't check PartyCount
+wLinkPartyEnd:: db ; older code doesn't check PartyCount
 
 UNION ; c813
 ; time capsule party data
@@ -1092,22 +1109,12 @@ wca02:: db
 NEXTU ; ca00
 ; link data
 	ds 191
-wcabf:: ds 79
+wcabf:: ds 1
+ENDU ; cb00
+
+	ds 14
 wcb0e:: ds 5
-wcb13:: ds 23
-ENDU ; cb2a
-
-wBillsPC_ScrollPosition:: db
-wBillsPC_CursorPosition:: db
-wBillsPC_NumMonsInBox:: db
-wBillsPC_NumMonsOnScreen:: db
-wBillsPC_LoadedBox:: db ; 0 if party, 1 - 14 if box, 15 if active box
-wBillsPC_BackupScrollPosition:: db
-wBillsPC_BackupCursorPosition:: db
-wBillsPC_BackupLoadedBox:: db
-wBillsPC_MonHasMail:: db
-	ds 18
-
+wcb13:: ds 50
 wcb45:: ds 20
 wcb59:: ds 20
 wcb6d:: ds 1
@@ -1116,8 +1123,8 @@ wcb84:: ds 100
 wcbe8:: dw
 wLinkOTPartyMonTypes:: ds 2 * PARTY_LENGTH
 	ds 84
-
 wcc4a:: ds 22
+
 wcc60:: ds 1
 wcc61:: ds 1
 wcc62:: ds 2
@@ -1569,10 +1576,10 @@ wOptions:: ; cfcc
 ; bit 7: battle scene off/on
 	db
 wSaveFileExists:: db
-wTextBoxFrame:: ; cfce
+wTextboxFrame:: ; cfce
 ; bits 0-2: textbox frame 0-7
 	db
-wTextBoxFlags::
+wTextboxFlags::
 ; bit 0: 1-frame text delay
 ; bit 4: no text delay
 	db
@@ -2259,22 +2266,23 @@ wTimeOfDay:: db ; d269
 SECTION "Enemy Party", WRAMX
 
 UNION ; d26b
-wd26b::
 wPokedexShowPointerAddr:: dw
 wPokedexShowPointerBank:: db
 	ds 3
-wd271:: ds 5
+wd271:: dw ; mobile
+
+NEXTU ; d26b
+wUnusedEggHatchFlag:: db
 
 NEXTU ; d26b
 ; enemy party
 wOTPlayerName:: ds NAME_LENGTH ; d26b
-ENDU ; d276
-
 wOTPlayerID:: dw ; d276
 	ds 8
 wOTPartyCount::   db ; d280
 wOTPartySpecies:: ds PARTY_LENGTH ; d281
 wOTPartyEnd::     db ; older code doesn't check PartyCount
+ENDU ; d276
 
 UNION ; d288
 ; ot party mons
@@ -2309,10 +2317,10 @@ wDudeBallsEnd:: db ; d2af
 wDudeBagEnd::
 ENDU ; d430
 
-wd430::
+wd430:: ; mobile
 wBattleAction:: db ; d430
 
-wd431:: db
+wd431:: db ; mobile
 wMapStatus:: db ; d432
 wMapEventStatus:: db ; d433
 
@@ -2409,7 +2417,10 @@ wStartHour:: db ; d4b7
 wStartMinute:: db ; d4b8
 wStartSecond:: db ; d4b9
 
-wRTC:: ds 8 ; d4ba
+wRTC:: ds 4 ; d4ba
+	
+	ds 4
+
 wDST:: ; d4c2
 ; bit 7: dst
 	db
@@ -2775,8 +2786,10 @@ wKenjiBreakTimer:: ds 2 ; Kenji
 wYanmaMapGroup:: db ; dc5a
 wYanmaMapNumber:: db
 wPlayerMonSelection:: ds 3
-wdc5f:: ds 1
-wdc60:: ds 19
+wdc5f:: db
+wdc60:: db
+
+	ds 18
 
 wStepCount:: db ; dc73
 wPoisonStepCount:: db ; dc74
