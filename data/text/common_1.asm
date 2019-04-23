@@ -333,7 +333,16 @@ UnknownText_0x1bc5b3::
 	line "cute JIGGLYPUFF."
 	done
 
-UnknownText_0x1bc5d7::
+_GameConsole::
+	text "<PLAYER> is playing"
+	line "the @"
+	text_ram wStringBuffer3
+	text "!"
+	para "...Okay!"
+	line "It's time to go!"
+	done
+
+_Doll::
 	text "It's an adorable"
 	line "@"
 	text_ram wStringBuffer3

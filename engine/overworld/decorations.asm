@@ -1,8 +1,10 @@
 InitDecorations:
 	ld a, DECO_FEATHERY_BED
 	ld [wDecoBed], a
-	ld a, DECO_TOWN_MAP
-	ld [wDecoPoster], a
+	ld a, DECO_SNES
+	ld [wDecoConsole], a
+	ld a, DECO_TROPICPLANT
+	ld [wDecoPlant], a
 	ret
 
 _PlayerDecorationMenu:
@@ -1045,17 +1047,33 @@ DecorationDesc_NullPoster:
 
 DecorationDesc_LeftOrnament:
 	ld a, [wDecoLeftOrnament]
-	jr DecorationDesc_OrnamentOrConsole
+	jr DecorationDesc_Ornament
 
 DecorationDesc_RightOrnament:
 	ld a, [wDecoRightOrnament]
-	jr DecorationDesc_OrnamentOrConsole
+	jr DecorationDesc_Ornament
 
 DecorationDesc_Console:
 	ld a, [wDecoConsole]
-	jr DecorationDesc_OrnamentOrConsole
+	jr DecorationDesc_GameConsole
 
-DecorationDesc_OrnamentOrConsole:
+DecorationDesc_Ornament:
+	ld c, a
+	ld de, wStringBuffer3
+	call GetDecorationName_c_de
+	ld b, BANK(.OrnamentDollScript)
+	ld de, .OrnamentDollScript
+	ret
+
+.OrnamentDollScript:
+	jumptext .OrnamentDollText
+
+.OrnamentDollText:
+	; It's an adorable @ .
+	text_far _Doll
+	text_end
+
+DecorationDesc_GameConsole:
 	ld c, a
 	ld de, wStringBuffer3
 	call GetDecorationName_c_de
@@ -1068,7 +1086,7 @@ DecorationDesc_OrnamentOrConsole:
 
 .OrnamentConsoleText:
 	; It's an adorable @ .
-	text_far UnknownText_0x1bc5d7
+	text_far _GameConsole
 	text_end
 
 DecorationDesc_GiantOrnament:
@@ -1086,17 +1104,17 @@ DecorationDesc_GiantOrnament:
 
 ToggleMaptileDecorations:
 	; tile coordinates work the same way as for changeblock
-	lb de, 0, 4 ; bed coordinates
+	lb de, 0, 6 ; bed coordinates
 	ld a, [wDecoBed]
 	call SetDecorationTile
-	lb de, 7, 4 ; plant coordinates
+	lb de, 5, 6 ; plant coordinates
 	ld a, [wDecoPlant]
 	call SetDecorationTile
 	lb de, 6, 0 ; poster coordinates
 	ld a, [wDecoPoster]
 	call SetDecorationTile
 	call SetPosterVisibility
-	lb de, 0, 0 ; carpet top-left coordinates
+	lb de, 2, 0 ; carpet top-left coordinates
 	call PadCoords_de
 	ld a, [wDecoCarpet]
 	and a
@@ -1112,7 +1130,7 @@ ToggleMaptileDecorations:
 	inc a
 	ld [hli], a ; carpet bottom-middle block
 	dec a
-	ld [hl], a ; carpet bottom-right block
+	;ld [hl], a ; carpet bottom-right block
 	ret
 
 SetPosterVisibility:

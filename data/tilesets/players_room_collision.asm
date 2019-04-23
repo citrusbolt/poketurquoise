@@ -6,16 +6,16 @@
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 05
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 06
 	tilecoll WALL, WALL, FLOOR, FLOOR ; 07
-	tilecoll WALL, WALL, FLOOR, FLOOR ; 08
+	tilecoll WALL, WALL, WALL, FLOOR ; 08
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 09
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 0a
-	tilecoll WALL, WALL, FLOOR, FLOOR ; 0b
+	tilecoll WALL, WALL, WALL, FLOOR ; 0b
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 0c
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 0d
-	tilecoll WALL, WALL, FLOOR, FLOOR ; 0e
+	tilecoll WALL, WALL, WALL, FLOOR ; 0e
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 0f
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 10
-	tilecoll WALL, WALL, FLOOR, FLOOR ; 11
+	tilecoll WALL, WALL, WALL, FLOOR ; 11
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 12
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 13
 	tilecoll WALL, WALL, FLOOR, FLOOR ; 14
@@ -29,22 +29,22 @@
 	tilecoll WALL, FLOOR, WALL, FLOOR ; 1c
 	tilecoll WALL, FLOOR, WALL, FLOOR ; 1d
 	tilecoll WALL, FLOOR, WALL, FLOOR ; 1e
-	tilecoll TOWN_MAP, STAIRCASE, FLOOR, FLOOR ; 1f
+	tilecoll TOWN_MAP, WINDOW, FLOOR, STAIRCASE ; 1f
 	tilecoll FLOOR, WALL, FLOOR, FLOOR ; 20
 	tilecoll FLOOR, WALL, FLOOR, FLOOR ; 21
 	tilecoll FLOOR, WALL, FLOOR, WALL ; 22
-	tilecoll WALL, STAIRCASE, FLOOR, FLOOR ; 23
-	tilecoll WALL, STAIRCASE, FLOOR, FLOOR ; 24
-	tilecoll WALL, STAIRCASE, FLOOR, FLOOR ; 25
+	tilecoll WALL, WINDOW, FLOOR, STAIRCASE ; 23
+	tilecoll WALL, WINDOW, FLOOR, STAIRCASE ; 24
+	tilecoll WALL, WINDOW, FLOOR, STAIRCASE ; 25
 	tilecoll FF, FF, FF, FF ; 26
 	tilecoll FF, FF, FF, FF ; 27
-	tilecoll FF, FF, FF, FF ; 28
-	tilecoll FF, FF, FF, FF ; 29
-	tilecoll FF, FF, FF, FF ; 2a
-	tilecoll FF, FF, FF, FF ; 2b
-	tilecoll FF, FF, FF, FF ; 2c
-	tilecoll FF, FF, FF, FF ; 2d
-	tilecoll FF, FF, FF, FF ; 2e
+	tilecoll WALL, WALL, PC, WALL ; 28
+	tilecoll WALL, WALL, WALL, FLOOR ; 29
+	tilecoll WALL, WINDOW, FLOOR, FLOOR ; 2a
+	tilecoll WALL, WINDOW, FLOOR, STAIRCASE ; 2b
+	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 2c
+	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 2d
+	tilecoll FLOOR, WALL, FLOOR, FLOOR ; 2e
 	tilecoll FF, FF, FF, FF ; 2f
 	tilecoll FF, FF, FF, FF ; 30
 	tilecoll FF, FF, FF, FF ; 31
