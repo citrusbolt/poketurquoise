@@ -838,8 +838,7 @@ NameRival:
 
 	xor a
 	ld [wCurPartySpecies], a
-	farcall DrawIntroPlayerPic
-
+	call DrawIntroRivalPic
 	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
 	call GetSGBLayout
 	call RotateThreePalettesLeft
