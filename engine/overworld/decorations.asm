@@ -1086,11 +1086,7 @@ DecorationDesc_GameConsole:
 
 .OrnamentConsoleText:
 	; It's an adorable @ .
-<<<<<<< HEAD
 	text_far _GameConsole
-=======
-	text_far _LookAdorableDecoText
->>>>>>> 745339014c39a4d47d8a4bdee05bbe8e573933ec
 	text_end
 
 DecorationDesc_GiantOrnament:
