@@ -102,8 +102,8 @@ SpriteAnimOAMData:
 	dbw $00, .OAMData_EZChatCursor7            ; SPRITE_ANIM_OAMSET_EZCHAT_CURSOR_7
 	dbw $00, .OAMData_BlueWalk                 ; SPRITE_ANIM_OAMSET_BLUE_WALK_1
 	dbw $04, .OAMData_BlueWalk                 ; SPRITE_ANIM_OAMSET_BLUE_WALK_2
-	dbw $00, .OAMData_MagnetTrainBlue          ; SPRITE_ANIM_OAMSET_MAGNET_TRAIN_BLUE_1
-	dbw $04, .OAMData_MagnetTrainBlue          ; SPRITE_ANIM_OAMSET_MAGNET_TRAIN_BLUE_2
+	dbw $00, .OAMData_MagnetTrainGreen         ; SPRITE_ANIM_OAMSET_MAGNET_TRAIN_GREEN_1
+	dbw $04, .OAMData_MagnetTrainGreen         ; SPRITE_ANIM_OAMSET_MAGNET_TRAIN_GREEN_2
 	dbw $20, .OAMData_MobileTradeCableBulge    ; SPRITE_ANIM_OAMSET_MOBILE_TRADE_CABLE_BULGE_1
 	dbw $21, .OAMData_MobileTradeCableBulge    ; SPRITE_ANIM_OAMSET_MOBILE_TRADE_CABLE_BULGE_2
 	dbw $22, .OAMData_MobileTradePing1         ; SPRITE_ANIM_OAMSET_MOBILE_TRADE_PING_1
@@ -141,6 +141,8 @@ SpriteAnimOAMData:
 	dbw $08, .OAMData_GameFreakLogo4_11        ; SPRITE_ANIM_OAMSET_GAMEFREAK_LOGO_9
 	dbw $04, .OAMData_GameFreakLogo4_11        ; SPRITE_ANIM_OAMSET_GAMEFREAK_LOGO_10
 	dbw $00, .OAMData_GameFreakLogo4_11        ; SPRITE_ANIM_OAMSET_GAMEFREAK_LOGO_11
+	dbw $00, .OAMData_GreenWalk                ; SPRITE_ANIM_OAMSET_GREEN_WALK_1
+	dbw $04, .OAMData_GreenWalk                ; SPRITE_ANIM_OAMSET_GREEN_WALK_2
 
 .OAMData_1x1_Palette0:
 	db 1
@@ -742,17 +744,17 @@ SpriteAnimOAMData:
 
 .OAMData_BlueWalk:
 	db 4
-	dsprite -1,  0, -1,  0, $00, PAL_OW_GREEN
-	dsprite -1,  0,  0,  0, $01, PAL_OW_GREEN
-	dsprite  0,  0, -1,  0, $02, PAL_OW_GREEN
-	dsprite  0,  0,  0,  0, $03, PAL_OW_GREEN
+	dsprite -1,  0, -1,  0, $00, PAL_OW_BLUE
+	dsprite -1,  0,  0,  0, $01, PAL_OW_BLUE
+	dsprite  0,  0, -1,  0, $02, PAL_OW_BLUE
+	dsprite  0,  0,  0,  0, $03, PAL_OW_BLUE
 
-.OAMData_MagnetTrainBlue:
+.OAMData_MagnetTrainGreen:
 	db 4
-	dsprite -1,  0, -1,  0, $00, PAL_OW_BLUE | PRIORITY
-	dsprite -1,  0,  0,  0, $01, PAL_OW_BLUE | PRIORITY
-	dsprite  0,  0, -1,  0, $02, PAL_OW_BLUE | PRIORITY
-	dsprite  0,  0,  0,  0, $03, PAL_OW_BLUE | PRIORITY
+	dsprite -1,  0, -1,  0, $00, PAL_OW_GREEN | PRIORITY
+	dsprite -1,  0,  0,  0, $01, PAL_OW_GREEN | PRIORITY
+	dsprite  0,  0, -1,  0, $02, PAL_OW_GREEN | PRIORITY
+	dsprite  0,  0,  0,  0, $03, PAL_OW_GREEN | PRIORITY
 
 .OAMData_MobileTradeCableBulge:
 	db 1
@@ -1126,3 +1128,10 @@ SpriteAnimOAMData:
 	dsprite  0,  0, -1,  4, $51, 1
 	dsprite  0,  0,  0,  4, $52, 1
 	dsprite  0,  0,  1,  4, $53, 1
+
+.OAMData_GreenWalk:
+	db 4
+	dsprite -1,  0, -1,  0, $00, PAL_OW_GREEN
+	dsprite -1,  0,  0,  0, $01, PAL_OW_GREEN
+	dsprite  0,  0, -1,  0, $02, PAL_OW_GREEN
+	dsprite  0,  0,  0,  0, $03, PAL_OW_GREEN

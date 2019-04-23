@@ -46,7 +46,7 @@ SpriteAnimFrameData:
 	dw .Frameset_EZChatCursor6
 	dw .Frameset_EZChatCursor7
 	dw .Frameset_BlueWalk
-	dw .Frameset_MagnetTrainBlue
+	dw .Frameset_MagnetTrainGreen
 	dw .Frameset_MobileTradeSentBall
 	dw .Frameset_MobileTradeOTBall
 	dw .Frameset_MobileTradeCableBulge
@@ -66,6 +66,7 @@ SpriteAnimFrameData:
 	dw .Frameset_IntroUnownF
 	dw .Frameset_CelebiLeft
 	dw .Frameset_CelebiRight
+	dw .Frameset_GreenWalk
 
 .Frameset_00:
 	frame SPRITE_ANIM_OAMSET_RED_WALK_1, 32
@@ -115,11 +116,11 @@ SpriteAnimFrameData:
 	frame SPRITE_ANIM_OAMSET_BLUE_WALK_2,  8, OAM_X_FLIP
 	dorestart
 
-.Frameset_MagnetTrainBlue:
-	frame SPRITE_ANIM_OAMSET_MAGNET_TRAIN_BLUE_1,  8
-	frame SPRITE_ANIM_OAMSET_MAGNET_TRAIN_BLUE_2,  8
-	frame SPRITE_ANIM_OAMSET_MAGNET_TRAIN_BLUE_1,  8
-	frame SPRITE_ANIM_OAMSET_MAGNET_TRAIN_BLUE_2,  8, OAM_X_FLIP
+.Frameset_MagnetTrainGreen:
+	frame SPRITE_ANIM_OAMSET_MAGNET_TRAIN_GREEN_1,  8
+	frame SPRITE_ANIM_OAMSET_MAGNET_TRAIN_GREEN_2,  8
+	frame SPRITE_ANIM_OAMSET_MAGNET_TRAIN_GREEN_1,  8
+	frame SPRITE_ANIM_OAMSET_MAGNET_TRAIN_GREEN_2,  8, OAM_X_FLIP
 	dorestart
 
 .Frameset_GSTitleTrail:
@@ -495,3 +496,10 @@ SpriteAnimFrameData:
 	frame SPRITE_ANIM_OAMSET_CELEBI_1,  8, OAM_X_FLIP
 	frame SPRITE_ANIM_OAMSET_CELEBI_2,  8, OAM_X_FLIP
 	endanim
+
+.Frameset_GreenWalk:
+	frame SPRITE_ANIM_OAMSET_GREEN_WALK_1,  8
+	frame SPRITE_ANIM_OAMSET_GREEN_WALK_2,  8
+	frame SPRITE_ANIM_OAMSET_GREEN_WALK_1,  8
+	frame SPRITE_ANIM_OAMSET_GREEN_WALK_2,  8, OAM_X_FLIP
+	dorestart
