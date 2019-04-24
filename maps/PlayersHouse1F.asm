@@ -245,7 +245,7 @@ MomGivesPokegearText:
 	line "that!"
 	done
 
-IsItDSTText:
+IsItDSTText::
 	text "Is it Daylight"
 	line "Saving Time now?"
 	done
