@@ -40,7 +40,6 @@ RestartClock:
 	ld hl, .Text_SetWithControlPad
 	call PrintText
 	call .SetClock
-	call ExitMenu
 .SetDST:
 	ld hl, .Text_SetDST
 	call PrintText
@@ -60,7 +59,6 @@ RestartClock:
 	farcall InitialClearDSTFlag
 	call YesNoBox
 	jr c, .SetDST
-
 	call ExitMenu
 	pop bc
 	ld hl, wOptions
