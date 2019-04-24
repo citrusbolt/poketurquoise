@@ -41,11 +41,36 @@ RestartClock:
 	call PrintText
 	call .SetClock
 	call ExitMenu
+.SetDST:
+	ld hl, .Text_SetDST
+	call PrintText
+	call YesNoBox
+	jr c, .DSTNo
+	farcall InitialSetDSTFlag
+	call YesNoBox
+	jr c, .SetDST
+	call ExitMenu
 	pop bc
 	ld hl, wOptions
 	ld [hl], b
 	ld c, a
 	ret
+
+.DSTNo:
+	farcall InitialClearDSTFlag
+	call YesNoBox
+	jr c, .SetDST
+
+	call ExitMenu
+	pop bc
+	ld hl, wOptions
+	ld [hl], b
+	ld c, a
+	ret
+
+.Text_SetDST:
+	text_far IsItDSTText
+	text_end
 
 .Text_ClockTimeMayBeWrong:
 	; The clock's time may be wrong. Please reset the time.
