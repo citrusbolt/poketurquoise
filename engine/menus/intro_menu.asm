@@ -888,22 +888,22 @@ DrawIntroRivalPic:
 ; Draw the player pic at (6,4).
 
 ; Get class
-	ld e, RIVAL1
-	ld a, [wPlayerGender]
-	bit PLAYERGENDER_FEMALE_F, a
-	jr z, .GotClass
-	ld e, KRIS
-.GotClass:
-	ld a, RIVAL1
+;	ld e, BLUE
+;	ld a, [wPlayerGender]
+;	bit PLAYERGENDER_FEMALE_F, a
+;	jr z, .GotClass
+;	ld e, KRIS
+;.GotClass:
+	ld a, BLUE1
 	ld [wTrainerClass], a
 
 ; Load pic
 	ld de, RivalPic
 ;	ld a, [wPlayerGender]
 ;	bit PLAYERGENDER_FEMALE_F, a
-	jr z, .GotPic
+;	jr z, .GotPic
 ;	ld de, KrisPic
-.GotPic:
+;.GotPic:
 	ld hl, vTiles2
 	ld b, BANK(RivalPic)
 	ld c, 7 * 7 ; dimensions
@@ -918,7 +918,7 @@ DrawIntroRivalPic:
 	ret
 
 RivalPic:
-INCBIN "gfx/trainers/rival1.2bpp"
+INCBIN "gfx/trainers/blue.2bpp"
 
 Unreferenced_Function60e9:
 	call LoadMenuHeader
