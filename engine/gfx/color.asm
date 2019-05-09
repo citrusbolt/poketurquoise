@@ -711,7 +711,7 @@ GetPlayerOrMonPalettePointer:
 	ld a, [wPlayerGender]
 	and a
 	jr z, .male
-	ld hl, KrisPalette
+;	ld hl, KrisPalette
 	ret
 
 .male

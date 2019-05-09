@@ -702,7 +702,6 @@ OakSpeech:
 	ld hl, OakText5a
 	call PrintText
 
-
 	call Intro_WipeInFrontpic
 	call ClearTileMap
 	call DrawIntroRivalPic
@@ -715,8 +714,9 @@ OakSpeech:
 	call NameRival
 	ld hl, OakText6a
 	call PrintText
+	call Intro_WipeInFrontpic
+	call ClearTileMap
 	farcall DrawIntroPlayerPic
-
 	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
 	call GetSGBLayout
 	call Intro_RotatePalettesLeftFrontpic
@@ -894,7 +894,7 @@ DrawIntroRivalPic:
 ;	jr z, .GotClass
 ;	ld e, KRIS
 ;.GotClass:
-	ld a, BLUE1
+	ld a, BLUE
 	ld [wTrainerClass], a
 
 ; Load pic
