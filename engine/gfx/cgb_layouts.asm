@@ -629,7 +629,7 @@ _CGB_TrainerCard:
 	xor a ; CHRIS
 	call GetTrainerPalettePointer
 	call LoadPalette_White_Col1_Col2_Black
-	ld a, FALKNER ; KRIS
+	ld a, KRIS
 	call GetTrainerPalettePointer
 	call LoadPalette_White_Col1_Col2_Black
 	ld a, BUGSY
@@ -641,13 +641,13 @@ _CGB_TrainerCard:
 	ld a, MORTY
 	call GetTrainerPalettePointer
 	call LoadPalette_White_Col1_Col2_Black
-	ld a, CHUCK
+	ld a, FALKNER ; CLAIR
 	call GetTrainerPalettePointer
 	call LoadPalette_White_Col1_Col2_Black
 	ld a, JASMINE
 	call GetTrainerPalettePointer
 	call LoadPalette_White_Col1_Col2_Black
-	ld a, PRYCE
+	ld a, PRYCE ; CHUCK
 	call GetTrainerPalettePointer
 	call LoadPalette_White_Col1_Col2_Black
 	ld a, PREDEFPAL_CGB_BADGE
@@ -675,11 +675,11 @@ _CGB_TrainerCard:
 .got_gender2
 	call FillBoxCGB
 	; top-right corner still uses the border's palette
-	hlcoord 18, 1, wAttrMap
-	ld [hl], $1
+;	hlcoord 18, 1, wAttrMap
+;	ld [hl], $1
 	hlcoord 2, 11, wAttrMap
 	lb bc, 2, 4
-	ld a, $1 ; falkner
+	ld a, $5 ; falkner
 	call FillBoxCGB
 	hlcoord 6, 11, wAttrMap
 	lb bc, 2, 4
@@ -695,7 +695,7 @@ _CGB_TrainerCard:
 	call FillBoxCGB
 	hlcoord 2, 14, wAttrMap
 	lb bc, 2, 4
-	ld a, $5 ; chuck
+	ld a, $7 ; chuck
 	call FillBoxCGB
 	hlcoord 6, 14, wAttrMap
 	lb bc, 2, 4
@@ -706,22 +706,29 @@ _CGB_TrainerCard:
 	ld a, $7 ; pryce
 	call FillBoxCGB
 	; clair uses kris's palette
-	ld a, [wPlayerGender]
-	and a
-	push af
-	jr z, .got_gender3
+;	ld a, [wPlayerGender]
+;	and a
+;	push af
+;	jr z, .got_gender3
 	hlcoord 14, 14, wAttrMap
 	lb bc, 2, 4
-	ld a, $1
+	ld a, $5 ; clair
 	call FillBoxCGB
+;.got_gender3
+;	pop af
+;	ld c, $0
+;	jr nz, .got_gender4
+;	inc c
+;.got_gender4
+;	ld a, c
+	; top-right corner still uses the border's palette
+ 	hlcoord 18, 1, wAttrMap
+	ld a, [wPlayerGender]
+	and a
+	ld a, $1 ; kris
+	jr z, .got_gender3
+	ld a, $0 ; chris
 .got_gender3
-	pop af
-	ld c, $0
-	jr nz, .got_gender4
-	inc c
-.got_gender4
-	ld a, c
-	hlcoord 18, 1, wAttrMap
 	ld [hl], a
 	call ApplyAttrMap
 	call ApplyPals
