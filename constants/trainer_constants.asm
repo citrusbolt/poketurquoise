@@ -24,7 +24,7 @@ CHRIS EQU __enum__
 	const PHONECONTACT_ELM
 	const PHONECONTACT_BUENA
 
-KRIS EQU __enum__
+;KRIS EQU __enum__
 	trainerclass FALKNER ; 1
 	const FALKNER1
 
@@ -684,7 +684,10 @@ KRIS EQU __enum__
 	const RED1
 
 	trainerclass BLUE ; 40
-	const BLUE1
+	const BLUE_LEADER
+	const BLUE_1_BULBASAUR
+	const BLUE_1_CHARMANDER
+	const BLUE_1_SQUIRTLE
 
 	trainerclass OFFICER ; 41
 	const KEITH
@@ -699,5 +702,9 @@ KRIS EQU __enum__
 
 	trainerclass MYSTICALMAN ; 43
 	const EUSINE
+	
+	
+	trainerclass KRIS
+	const KRIS1
 
 NUM_TRAINER_CLASSES EQU __enum__

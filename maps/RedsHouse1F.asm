@@ -13,63 +13,99 @@ RedsHouse1F_MapScripts:
 RedsMom:
 	faceplayer
 	opentext
-	checkevent EVENT_MET_REDS_MOM
-	iftrue .MetAlready
-	writetext RedsMomText1
+	checkflag ENGINE_POKEDEX
+	iftrue .Bank
+	checkevent EVENT_GOT_A_POKEMON_FROM_OAK
+	iftrue .Heal
+	checkflag ENGINE_PLAYER_IS_FEMALE
+	iffalse .Male
+	writetext MomLeaveGirlText
 	waitbutton
 	closetext
-	setevent EVENT_MET_REDS_MOM
 	end
-.MetAlready:
-	writetext RedsMomText2
+.Male:
+	writetext MomLeaveBoyText
 	waitbutton
+	closetext
+	end
+.Bank:
+	special BankOfMom
+	waitbutton
+.Heal:
+	writetext MomHeal1Text
+	waitbutton
+	closetext
+	special FadeBlackQuickly
+	special ReloadSpritesNoPalettes
+	special StubbedTrainerRankings_Healings
+	playmusic MUSIC_HEAL
+	special HealParty
+	pause 60
+	special FadeInQuickly
+	special RestartMapMusic
+	opentext
+	writetext MomHeal2Text
 	closetext
 	end
 
 RedsHouse1FTV:
+	readvar VAR_FACING
+	ifequal LEFT, .WrongSide
+	ifequal RIGHT, .WrongSide
 	jumptext RedsHouse1FTVText
+.WrongSide
+	jumptext RedsHouseTVWrongSideText
 
 RedsHouse1FBookshelf:
 	jumpstd picturebookshelf
 
-RedsMomText1:
-	text "Hi!"
+MomLeaveGirlText:
+	text "Right."
+	line "All girls leave"
+	cont "home some day."
+	cont "It said so on TV."
 
-	para "RED's been away"
-	line "for a long time."
-
-	para "He hasn't called"
-	line "either, so I have"
-
-	para "no idea where he"
-	line "is or what he's"
-	cont "been doing."
-
-	para "They say that no"
-	line "word is proof that"
-
-	para "he's doing fine,"
-	line "but I do worry"
-	cont "about him."
+	para "PROF.OAK, next"
+	line "door, is looking"
+	cont "for you."
 	done
 
-RedsMomText2:
-	text "I worry about RED"
-	line "getting hurt or"
+MomLeaveBoyText:
+	text "Right."
+	line "All boys leave"
+	cont "home some day."
+	cont "It said so on TV."
 
-	para "sick, but he's a"
-	line "boy. I'm proud"
+	para "PROF.OAK, next"
+	line "door, is looking"
+	cont "for you."
+	done
 
-	para "that he is doing"
-	line "what he wants to"
-
-	para "do."
+MomHeal1Text:
+	text "<PLAYER>!"
+	line "You should take a"
+	cont "quick rest."
+	done
+	
+MomHeal2Text:
+	text "Oh good!"
+	line "You and your"
+	cont "#MON are"
+	cont "looking great!"
+	cont "Take care now!"
 	done
 
 RedsHouse1FTVText:
-	text "They have programs"
-	line "that aren't shown"
-	cont "in JOHTO…"
+	text "There's a movie"
+	line "on TV. Four boys"
+	cont "are walking on"
+	cont "railroad tracks."
+	
+	para "I better go too."
+	done
+	
+RedsHouseTVWrongSideText:
+	text "Oops, wrong side."
 	done
 
 RedsHouse1F_MapEvents:
@@ -78,14 +114,14 @@ RedsHouse1F_MapEvents:
 	db 3 ; warp events
 	warp_event  2,  7, PALLET_TOWN, 1
 	warp_event  3,  7, PALLET_TOWN, 1
-	warp_event  7,  0, REDS_HOUSE_2F, 1
+	warp_event  7,  1, REDS_HOUSE_2F, 1
 
 	db 0 ; coord events
 
 	db 3 ; bg events
 	bg_event  0,  1, BGEVENT_READ, RedsHouse1FBookshelf
 	bg_event  1,  1, BGEVENT_READ, RedsHouse1FBookshelf
-	bg_event  2,  1, BGEVENT_READ, RedsHouse1FTV
+	bg_event  3,  1, BGEVENT_READ, RedsHouse1FTV
 
 	db 1 ; object events
 	object_event  5,  3, SPRITE_REDS_MOM, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, RedsMom, -1

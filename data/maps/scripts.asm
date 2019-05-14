@@ -392,7 +392,6 @@ INCLUDE "maps/Route43Gate.asm"
 INCLUDE "maps/RedsHouse1F.asm"
 INCLUDE "maps/RedsHouse2F.asm"
 INCLUDE "maps/BluesHouse.asm"
-INCLUDE "maps/OaksLab.asm"
 
 
 SECTION "Map Scripts 20", ROMX
@@ -459,7 +458,6 @@ SECTION "Map Scripts 24", ROMX
 INCLUDE "maps/Route33.asm"
 INCLUDE "maps/Route2.asm"
 INCLUDE "maps/Route1.asm"
-INCLUDE "maps/PalletTown.asm"
 INCLUDE "maps/Route21.asm"
 INCLUDE "maps/CinnabarIsland.asm"
 INCLUDE "maps/Route20.asm"
@@ -484,3 +482,7 @@ SECTION "Map Scripts 25", ROMX
 
 INCLUDE "maps/SilverCaveOutside.asm"
 INCLUDE "maps/Route10North.asm"
+
+SECTION "Map Scripts 26", ROMX
+INCLUDE "maps/OaksLab.asm"
+INCLUDE "maps/PalletTown.asm"

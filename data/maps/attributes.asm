@@ -238,18 +238,18 @@ ENDM
 
 	map_attributes ViridianCity, VIRIDIAN_CITY, $0f, NORTH | SOUTH | WEST
 	connection north, Route2, ROUTE_2, 5
-	connection south, Route1, ROUTE_1, 10
+	connection south, Route1, ROUTE_1, 6
 	connection west, Route22, ROUTE_22, 4
 
 	map_attributes Route22, ROUTE_22, $2c, EAST
 	connection east, ViridianCity, VIRIDIAN_CITY, -4
 
 	map_attributes Route1, ROUTE_1, $0f, NORTH | SOUTH
-	connection north, ViridianCity, VIRIDIAN_CITY, -10
-	connection south, PalletTown, PALLET_TOWN, 0
+	connection north, ViridianCity, VIRIDIAN_CITY, -6
+	connection south, PalletTown, PALLET_TOWN, -1
 
 	map_attributes PalletTown, PALLET_TOWN, $0f, NORTH | SOUTH
-	connection north, Route1, ROUTE_1, 0
+	connection north, Route1, ROUTE_1, 1
 	connection south, Route21, ROUTE_21, 0
 
 	map_attributes Route21, ROUTE_21, $43, NORTH | SOUTH

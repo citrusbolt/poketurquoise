@@ -120,9 +120,8 @@ DifficultBookshelfText:
 	done
 
 PictureBookshelfText:
-	text "A whole collection"
-	line "of #MON picture"
-	cont "books!"
+	text "Crammed full of"
+	line "#MON books!"
 	done
 
 MagazineBookshelfText:

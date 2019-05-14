@@ -1,5 +1,6 @@
 	object_const_def ; object_event constants
 	const BLUESHOUSE_DAISY
+	const BLUESHOUSE_MAP
 
 BluesHouse_MapScripts:
 	db 0 ; scene scripts
@@ -9,9 +10,32 @@ BluesHouse_MapScripts:
 DaisyScript:
 	faceplayer
 	opentext
-	readvar VAR_HOUR
-	ifequal 15, .ThreePM
-	writetext DaisyHelloText
+	checkflag ENGINE_MAP_CARD
+	iftrue .GotMap
+	checkflag ENGINE_POKEDEX
+	iftrue .GiveMap
+	writetext DaisyInitialText
+;	readvar VAR_HOUR
+;	ifequal 15, .ThreePM
+;	writetext DaisyHelloText
+	waitbutton
+	closetext
+	end
+
+.GiveMap:
+	writetext DaisyOfferMapText
+	waitbutton
+	giveitem TOWN_MAP
+	disappear BLUESHOUSE_MAP
+	setflag ENGINE_MAP_CARD
+	setevent EVENT_GOT_MAP_FROM_DAISY
+	writetext DaisyGotMapText
+	waitbutton
+	closetext
+	end
+
+.GotMap:
+	writetext DaisyUseMapText
 	waitbutton
 	closetext
 	end
@@ -62,6 +86,30 @@ DaisyScript:
 	waitbutton
 	closetext
 	end
+
+DaisyInitialText:
+	text "Hi <PLAYER>!"
+	line "<RIVAL> is out at"
+	cont "Grandpa's lab."
+	done
+
+DaisyOfferMapText:
+	text "Grandpa asked you"
+	line "to run an errand?"
+	cont "Here, this will"
+	cont "help you!"
+	done
+
+DaisyGotMapText:
+	text "<PLAYER> got a"
+	line "TOWN MAP!"
+	done
+
+DaisyUseMapText:
+	text "Use the TOWN MAP"
+	line "to find out where"
+	cont "you are."
+	done
 
 DaisyHelloText:
 	text "DAISY: Hi! My kid"
@@ -142,6 +190,21 @@ DaisyCantGroomEggText:
 	cont "groom an EGG."
 	done
 
+BluesHouseBookshelf:
+	jumpstd picturebookshelf
+
+BluesHouseMapScript:
+	opentext
+	writetext BluesHouseMapText
+	waitbutton
+	closetext
+	end
+
+BluesHouseMapText:
+	text "It's a big map!"
+	line "This is useful!"
+	done
+
 BluesHouse_MapEvents:
 	db 0, 0 ; filler
 
@@ -151,7 +214,11 @@ BluesHouse_MapEvents:
 
 	db 0 ; coord events
 
-	db 0 ; bg events
+	db 3 ; bg events
+	bg_event 0,  1, BGEVENT_READ, BluesHouseBookshelf
+	bg_event 1,  1, BGEVENT_READ, BluesHouseBookshelf
+	bg_event 7,  1, BGEVENT_READ, BluesHouseBookshelf
 
-	db 1 ; object events
+	db 2 ; object events
 	object_event  2,  3, SPRITE_DAISY, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DaisyScript, -1
+	object_event  3,  3, SPRITE_POKEDEX, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BluesHouseMapScript, EVENT_GOT_MAP_FROM_DAISY
