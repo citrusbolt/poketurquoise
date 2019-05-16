@@ -38,6 +38,8 @@ ViridianMartClerkScript:
 	checkflag ENGINE_POKEDEX
 	iffalse .NoDex
 	pokemart MARTTYPE_STANDARD, MART_VIRIDIAN
+	closetext
+	end
 .NoDex:
 	writetext SayHiToOakText
 	closetext

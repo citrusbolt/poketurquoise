@@ -4638,7 +4638,7 @@ CheckDanger:
 
 PrintPlayerHUD:
 	ld de, wBattleMonNick
-	hlcoord 10, 7
+	hlcoord 9, 7
 	call ret_3e138
 	call PlaceString
 
@@ -4668,6 +4668,14 @@ PrintPlayerHUD:
 	pop hl
 	dec hl
 
+	call BattleCheckPlayerShininess
+	jr nc, .not_shiny
+;	call LoadStatsTilesGFX
+	ld a, $6d
+	hlcoord 14, 8
+	ld [hl], a
+
+.not_shiny
 	ld a, TEMPMON
 	ld [wMonType], a
 	callfar GetGender
@@ -4678,9 +4686,9 @@ PrintPlayerHUD:
 	ld a, "♀"
 
 .got_gender_char
-	hlcoord 17, 8
+	hlcoord 9, 8
 	ld [hl], a
-	hlcoord 14, 8
+	hlcoord 10, 8
 	push af ; back up gender
 	push hl
 	ld de, wBattleMonStatus
@@ -4696,7 +4704,7 @@ PrintPlayerHUD:
 .copy_level
 	ld a, [wBattleMonLevel]
 	ld [wTempMonLevel], a
-	jp PrintLevel
+	jp PrintLevel_Force3Digits
 
 UpdateEnemyHUD::
 	push hl
@@ -4724,7 +4732,7 @@ DrawEnemyHUD:
 	ld [wCurPartySpecies], a
 	call GetBaseData
 	ld de, wEnemyMonNick
-	hlcoord 1, 0
+	hlcoord 1, 1
 	call ret_3e138
 	call PlaceString
 	ld h, b
@@ -4744,20 +4752,38 @@ DrawEnemyHUD:
 	ld a, [hl]
 	ld [de], a
 
+	ld bc, wEnemyMonDVs
+	farcall CheckShininess
+	jr nc, .not_shiny
+;	call LoadStatsTilesGFX
+	ld a, $6d
+	hlcoord 6, 3
+	ld [hl], a
+
+.not_shiny
 	ld a, TEMPMON
 	ld [wMonType], a
-	callfar GetGender
+	farcall GetGender
 	ld a, " "
 	jr c, .got_gender
 	ld a, "♂"
 	jr nz, .got_gender
 	ld a, "♀"
 
+;	ld a, TEMPMON
+;	ld [wMonType], a
+;	callfar GetGender
+;	ld a, " "
+;	jr c, .got_gender
+;	ld a, "♂"
+;	jr nz, .got_gender
+;	ld a, "♀"
+
 .got_gender
-	hlcoord 9, 1
+	hlcoord 1, 3
 	ld [hl], a
 
-	hlcoord 6, 1
+	hlcoord 2, 3
 	push af
 	push hl
 	ld de, wEnemyMonStatus
@@ -4772,7 +4798,7 @@ DrawEnemyHUD:
 .print_level
 	ld a, [wEnemyMonLevel]
 	ld [wTempMonLevel], a
-	call PrintLevel
+	call PrintLevel_Force3Digits
 .skip_level
 
 	ld hl, wEnemyMonHP
@@ -9135,3 +9161,10 @@ BattleStartMessage:
 	farcall Mobile_PrintOpponentBattleMessage
 
 	ret
+	
+;LoadStatsTilesGFX:
+;	ld de, StatsScreenPageTilesGFX + 14 tiles
+;	ld hl, vTiles2 tile $6d
+;	lb bc, BANK(StatsScreenPageTilesGFX), 1
+;	call Get2bpp_2
+;	ret

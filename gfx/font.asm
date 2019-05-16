@@ -24,7 +24,7 @@ StatsScreenPageTilesGFX:
 INCBIN "gfx/stats/stats_tiles.2bpp"
 
 EnemyHPBarBorderGFX:
-INCBIN "gfx/battle/enemy_hp_bar_border.1bpp"
+INCBIN "gfx/battle/enemy_hp_bar_border.2bpp"
 
 HPExpBarBorderGFX:
 INCBIN "gfx/battle/hp_exp_bar_border.1bpp"

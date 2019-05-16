@@ -110,8 +110,8 @@ DrawPlayerHUDBorder:
 .tiles
 	db $73 ; right side
 	db $77 ; bottom right
-	db $6f ; bottom left
-	db $76 ; bottom side
+	db $5c ; bottom left
+	db $6f ; bottom side
 .tiles_end
 
 DrawPlayerPartyIconHUDBorder:
@@ -121,7 +121,8 @@ DrawPlayerPartyIconHUDBorder:
 	call CopyBytes
 	hlcoord 18, 10
 	ld de, -1 ; start on right
-	jr PlaceHUDBorderTiles
+;	jr PlaceHUDBorderTiles
+	ret
 
 .tiles
 	db $73 ; right side
@@ -135,9 +136,9 @@ DrawEnemyHUDBorder:
 	ld de, wTrainerHUDTiles
 	ld bc, .tiles_end - .tiles
 	call CopyBytes
-	hlcoord 1, 2
+	hlcoord 8, 0
 	ld de, 1 ; start on left
-	call PlaceHUDBorderTiles
+;	call PlaceEnemyHUDBorderTiles
 	ld a, [wBattleMode]
 	dec a
 	ret nz
@@ -145,7 +146,7 @@ DrawEnemyHUDBorder:
 	dec a
 	call CheckCaughtMon
 	ret z
-	hlcoord 1, 1
+	hlcoord 1, 2
 	ld [hl], $5d
 	ret
 
@@ -163,7 +164,7 @@ PlaceHUDBorderTiles:
 	add hl, bc
 	ld a, [wTrainerHUDTiles + 1]
 	ld [hl], a
-	ld b, 8
+	ld b, 9
 .loop
 	add hl, de
 	ld a, [wTrainerHUDTiles + 3]
@@ -174,6 +175,27 @@ PlaceHUDBorderTiles:
 	ld a, [wTrainerHUDTiles + 2]
 	ld [hl], a
 	ret
+
+PlaceEnemyHUDBorderTiles:
+	ld a, [wTrainerHUDTiles]
+	hlcoord 8, 0
+	ld [hl], a
+;	ld bc, SCREEN_WIDTH
+;	add hl, bc
+	hlcoord 8, 1
+	ld [hl], a
+;	ld b, 8
+;.loop
+;	add hl, de
+;	ld a, [wTrainerHUDTiles + 3]
+;	ld [hl], a
+;	dec b
+;	jr nz, .loop
+;	add hl, de
+;	ld a, [wTrainerHUDTiles + 2]
+;	ld [hl], a
+	ret
+
 
 LinkBattle_TrainerHuds:
 	call LoadBallIconGFX

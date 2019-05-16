@@ -106,7 +106,7 @@ LoadHPBar:
 	ld de, EnemyHPBarBorderGFX
 	ld hl, vTiles2 tile $6c
 	lb bc, BANK(EnemyHPBarBorderGFX), 4
-	call Get1bpp_2
+	call Get2bpp_2
 	ld de, HPExpBarBorderGFX
 	ld hl, vTiles2 tile $73
 	lb bc, BANK(HPExpBarBorderGFX), 6
@@ -123,10 +123,10 @@ LoadHPBar:
 
 StatsScreen_LoadFont:
 	call _LoadFontsBattleExtra
-	ld de, EnemyHPBarBorderGFX
-	ld hl, vTiles2 tile $6c
-	lb bc, BANK(EnemyHPBarBorderGFX), 4
-	call Get1bpp_2
+;	ld de, EnemyHPBarBorderGFX
+;	ld hl, vTiles2 tile $6c
+;	lb bc, BANK(EnemyHPBarBorderGFX), 4
+;	call Get1bpp_2
 	ld de, HPExpBarBorderGFX
 	ld hl, vTiles2 tile $78
 	lb bc, BANK(HPExpBarBorderGFX), 1
