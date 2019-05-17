@@ -158,13 +158,13 @@ DrawEnemyHUDBorder:
 .tiles_end
 
 PlaceHUDBorderTiles:
-	ld a, [wTrainerHUDTiles + 0]
-	ld [hl], a
+;	ld a, [wTrainerHUDTiles + 0]
+;	ld [hl], a
 	ld bc, SCREEN_WIDTH
 	add hl, bc
 	ld a, [wTrainerHUDTiles + 1]
 	ld [hl], a
-	ld b, 9
+	ld b, 7
 .loop
 	add hl, de
 	ld a, [wTrainerHUDTiles + 3]

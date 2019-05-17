@@ -4672,7 +4672,7 @@ PrintPlayerHUD:
 	jr nc, .not_shiny
 ;	call LoadStatsTilesGFX
 	ld a, $6d
-	hlcoord 14, 8
+	hlcoord 14, 10
 	ld [hl], a
 
 .not_shiny
@@ -4686,9 +4686,9 @@ PrintPlayerHUD:
 	ld a, "♀"
 
 .got_gender_char
-	hlcoord 9, 8
+	hlcoord 9, 10
 	ld [hl], a
-	hlcoord 10, 8
+	hlcoord 10, 10
 	push af ; back up gender
 	push hl
 	ld de, wBattleMonStatus
@@ -7935,7 +7935,7 @@ CalcExpBar:
 	ret
 
 PlaceExpBar:
-	ld c, $8 ; number of tiles
+	ld c, $6 ; number of tiles
 .loop1
 	ld a, b
 	sub $8
@@ -9162,9 +9162,3 @@ BattleStartMessage:
 
 	ret
 	
-;LoadStatsTilesGFX:
-;	ld de, StatsScreenPageTilesGFX + 14 tiles
-;	ld hl, vTiles2 tile $6d
-;	lb bc, BANK(StatsScreenPageTilesGFX), 1
-;	call Get2bpp_2
-;	ret
