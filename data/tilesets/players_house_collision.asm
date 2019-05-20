@@ -42,7 +42,7 @@
 	tilecoll WALL, WINDOW, FLOOR, LADDER ; 29
 	tilecoll WALL, WINDOW, FLOOR, FLOOR ; 2a
 	tilecoll WALL, WINDOW, FLOOR, TV ; 2b
-	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 2c
+	tilecoll WALL, WINDOW, FLOOR, FLOOR ; 2c
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 2d
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 2e
 	tilecoll FLOOR, FLOOR, FLOOR, FLOOR ; 2f

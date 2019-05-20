@@ -14,6 +14,12 @@ PalletTown_MapScripts:
 	return
 
 PalletTownTeacherScript:
+	giveitem MASTER_BALL
+	loadwildmon GYARADOS, 30
+	loadvar VAR_BATTLETYPE, BATTLETYPE_SHINY
+	startbattle
+	reloadmapafterbattle
+	end
 	jumptextfaceplayer PalletTownTeacherText
 
 PalletTownFisherScript:
