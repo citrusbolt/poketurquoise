@@ -64,8 +64,8 @@ CatchTutorial::
 	ld hl, wDudeNumKeyItems
 	ld [hl], 0
 	inc hl
-	ld [hl], -1
 	ld hl, wDudeNumBalls
+	ld [hl], -1
 	ld a, 1
 	ld [hli], a
 	ld a, POKE_BALL
@@ -75,7 +75,7 @@ CatchTutorial::
 	ret
 
 .Dude:
-	db "DUDE@"
+	db "OLD MAN@"
 
 .AutoInput:
 	db NO_INPUT, $ff ; end

@@ -207,10 +207,9 @@ PokecenterSignText:
 	done
 
 MartSignText:
-	text "For All Your"
-	line "#MON Needs"
-
-	para "#MON MART"
+	text "All your item"
+	line "needs fulfilled!"
+	cont "#MON MART"
 	done
 
 ContestResults_ReadyToJudgeText:

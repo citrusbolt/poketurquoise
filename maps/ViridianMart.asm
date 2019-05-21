@@ -22,12 +22,14 @@ ViridianMart_MapScripts:
 	waitbutton
 	closetext
 	opentext
-	writetext GetParcelText3
-	waitbutton
-	closetext
 	setevent EVENT_GOT_OAKS_PARCEL
 	setscene SCENE_FINISHED
 	giveitem OAKS_PARCEL
+	writetext GetParcelText3
+	playsound SFX_KEY_ITEM
+	waitbutton
+	closetext
+
 	end
 	
 .DummyScene1:
@@ -59,17 +61,13 @@ GetParcelMovement
 	step_end
 
 ViridianMartLassText:
-	text "The GYM LEADER"
-	line "here is totally"
-	cont "cool."
+	text "No! POTIONs are"
+	line "all sold out."
 	done
 
 ViridianMartCooltrainerMText:
-	text "Have you been to"
-	line "CINNABAR?"
-
-	para "It's an island way"
-	line "south of here."
+	text "This shop sells"
+	line "many ANTIDOTES."
 	done
 
 GetParcelText1:
@@ -110,5 +108,5 @@ ViridianMart_MapEvents:
 
 	db 3 ; object events
 	object_event  1,  3, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianMartClerkScript, -1
-	object_event  7,  2, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianMartLassScript, -1
-	object_event  1,  6, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianMartCooltrainerMScript, -1
+	object_event  4,  3, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, ViridianMartLassScript, -1
+	object_event  7,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianMartCooltrainerMScript, -1

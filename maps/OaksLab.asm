@@ -3,8 +3,7 @@
 	const OAKSLAB_SCIENTIST1
 	const OAKSLAB_SCIENTIST2
 	const OAKSLAB_GIRL
-	const OAKSLAB_BLUE1
-	const OAKSLAB_BLUE2
+	const OAKSLAB_BLUE
 	const OAKSLAB_POKE_BALL1
 	const OAKSLAB_POKE_BALL2
 	const OAKSLAB_POKE_BALL3
@@ -19,6 +18,11 @@ OaksLab_MapScripts:
 	db 0 ; callbacks
 
 .OakGone:
+	checkevent EVENT_TIME_TO_CHOOSE_STARTER
+	iffalse .OakDisappear
+	setscene SCENE_FINISHED
+	end
+.OakDisappear:
 	disappear OAKSLAB_OAK
 	end
 	
@@ -55,13 +59,21 @@ CharmanderPokeBallScript:
 	closetext
 	readvar VAR_FACING
 	ifnotequal UP, .NotCharmanderUp1
-	applymovement OAKSLAB_BLUE1, DownMovement
+	applymovement OAKSLAB_BLUE, .Down
 .NotCharmanderUp1
-	applymovement OAKSLAB_BLUE1, BlueToSquirtleMovement
+	applymovement OAKSLAB_BLUE, BlueToSquirtleMovement
 	ifnotequal UP, .NotCharmanderUp2
-	applymovement OAKSLAB_BLUE1, UpMovement
+	applymovement OAKSLAB_BLUE, .Up
 .NotCharmanderUp2
 	sjump BlueStarterScript
+
+.Down:
+	slow_step DOWN
+	step_end
+	
+.Up:
+	slow_step UP
+	step_end
 
 SquirtlePokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_OAK
@@ -93,13 +105,21 @@ SquirtlePokeBallScript:
 	closetext
 	readvar VAR_FACING
 	ifnotequal UP, .NotSquirtleUp1
-	applymovement OAKSLAB_BLUE1, DownMovement
+	applymovement OAKSLAB_BLUE, .Down
 .NotSquirtleUp1
-	applymovement OAKSLAB_BLUE1, BlueToBulbasaurMovement
+	applymovement OAKSLAB_BLUE, BlueToBulbasaurMovement
 	ifnotequal UP, .NotSquirtleUp2
-	applymovement OAKSLAB_BLUE1, UpMovement
+	applymovement OAKSLAB_BLUE, .Up
 .NotSquirtleUp2
 	sjump BlueStarterScript
+
+.Down:
+	slow_step DOWN
+	step_end
+	
+.Up:
+	slow_step UP
+	step_end
 
 BulbasaurPokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_OAK
@@ -129,7 +149,7 @@ BulbasaurPokeBallScript:
 	buttonsound
 	givepoke BULBASAUR, 5, BERRY
 	closetext
-	applymovement OAKSLAB_BLUE1, BlueToCharmanderMovement
+	applymovement OAKSLAB_BLUE, BlueToCharmanderMovement
 	sjump BlueStarterScript
 	
 BlueStarterScript:
@@ -253,22 +273,22 @@ Oak:
 	ifequal LEFT, .ParcelPlus1
 	ifequal RIGHT, .ParcelPlus1
 	ifequal UP, .ParcelPlus2
-	moveobject OAKSLAB_BLUE2, 4, 6
-	appear OAKSLAB_BLUE2
+	moveobject OAKSLAB_BLUE, 4, 6
+	appear OAKSLAB_BLUE
 	jump .RivalEnter
 .ParcelPlus1:
-	moveobject OAKSLAB_BLUE2, 4, 7
-	appear OAKSLAB_BLUE2
-	applymovement OAKSLAB_BLUE2, UpMovement
+	moveobject OAKSLAB_BLUE, 4, 7
+	appear OAKSLAB_BLUE
+	applymovement OAKSLAB_BLUE, .Up
 	jump .RivalEnter
 .ParcelPlus2:
-	moveobject OAKSLAB_BLUE2, 4, 8
-	appear OAKSLAB_BLUE2
-	applymovement OAKSLAB_BLUE2, UpMovement
-	applymovement OAKSLAB_BLUE2, UpMovement
+	moveobject OAKSLAB_BLUE, 4, 8
+	appear OAKSLAB_BLUE
+	applymovement OAKSLAB_BLUE, .Up
+	applymovement OAKSLAB_BLUE, .Up
 .RivalEnter:
 	turnobject OAKSLAB_OAK, DOWN
-	applymovement OAKSLAB_BLUE2, BlueEnterOaksLabMovement
+	applymovement OAKSLAB_BLUE, BlueEnterOaksLabMovement
 	opentext
 	writetext BlueGotParcelText2
 	waitbutton
@@ -283,26 +303,31 @@ Oak:
 	closetext
 	opentext
 	writetext OakGotParcelText6
-	waitbutton
-	closetext
+	playsound SFX_KEY_ITEM
 	disappear OAKSLAB_POKEDEX1
 	disappear OAKSLAB_POKEDEX2
 	setevent EVENT_GOT_POKEDEX
 	setflag ENGINE_POKEDEX
+	clearevent EVENT_CAF_FIEND_NEEDS_COFFEE
+	waitbutton
+	closetext
 	opentext
 	writetext OakGotParcelText7
 	waitbutton
 	closetext
-	turnobject OAKSLAB_BLUE2, RIGHT
+	turnobject OAKSLAB_BLUE, RIGHT
 	opentext
 	writetext BlueGotParcelText3
 	waitbutton
 	closetext
-	applymovement OAKSLAB_BLUE2, BlueLeaveOaksLabMovement
-	disappear OAKSLAB_BLUE2
+	applymovement OAKSLAB_BLUE, BlueLeaveOaksLabMovement
+	disappear OAKSLAB_BLUE
 	end
 	
-	
+.Up:
+	slow_step UP
+	step_end	
+
 .OakFoughtRival:
 	writetext OakFoughtRivalText
 	waitbutton
@@ -349,7 +374,6 @@ LeaveOaksLabLeftScript:
 	setevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
 
 LeaveOaksLabRightScript:
-	setscene SCENE_FINISHED
 	checkevent EVENT_GOT_A_POKEMON_FROM_OAK
 	iftrue BlueBattle01Script
 	checkevent EVENT_TIME_TO_CHOOSE_STARTER
@@ -366,16 +390,16 @@ BlueBattle01Script:
 	closetext
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
 	iffalse .OnRight
-	applymovement OAKSLAB_BLUE1, LeftMovement
+	applymovement OAKSLAB_BLUE, .Left
 .OnRight
 	checkevent EVENT_GOT_CHARMANDER_FROM_OAK
 	iftrue .GotCharmander
 	checkevent EVENT_GOT_SQUIRTLE_FROM_OAK
 	iftrue .GotSquirtle
-	applymovement OAKSLAB_BLUE1, BlueFromCharmanderMovement
+	applymovement OAKSLAB_BLUE, BlueFromCharmanderMovement
 	playmusic MUSIC_RIVAL_ENCOUNTER
 	winlosstext OaksLabBlueWinText, OaksLabBlueLossText
-	setlasttalked OAKSLAB_BLUE1
+	setlasttalked OAKSLAB_BLUE
 	loadtrainer BLUE, BLUE_1_CHARMANDER
 	loadvar VAR_BATTLETYPE, BATTLETYPE_CANLOSE
 	startbattle
@@ -383,10 +407,10 @@ BlueBattle01Script:
 	reloadmap
 	sjump .FinishRival
 .GotCharmander:
-	applymovement OAKSLAB_BLUE1, BlueFromSquirtleMovement
+	applymovement OAKSLAB_BLUE, BlueFromSquirtleMovement
 	playmusic MUSIC_RIVAL_ENCOUNTER
 	winlosstext OaksLabBlueWinText, OaksLabBlueLossText
-	setlasttalked OAKSLAB_BLUE1
+	setlasttalked OAKSLAB_BLUE
 	loadtrainer BLUE, BLUE_1_SQUIRTLE
 	loadvar VAR_BATTLETYPE, BATTLETYPE_CANLOSE
 	startbattle
@@ -394,10 +418,10 @@ BlueBattle01Script:
 	reloadmap
 	sjump .FinishRival
 .GotSquirtle:
-	applymovement OAKSLAB_BLUE1, BlueFromBulbasaurMovement
+	applymovement OAKSLAB_BLUE, BlueFromBulbasaurMovement
 	playmusic MUSIC_RIVAL_ENCOUNTER
 	winlosstext OaksLabBlueWinText, OaksLabBlueLossText
-	setlasttalked OAKSLAB_BLUE1
+	setlasttalked OAKSLAB_BLUE
 	loadtrainer BLUE, BLUE_1_BULBASAUR
 	loadvar VAR_BATTLETYPE, BATTLETYPE_CANLOSE
 	startbattle
@@ -412,26 +436,34 @@ BlueBattle01Script:
 	setevent EVENT_RIVAL_BATTLE_01
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
 	iffalse .OnRight2
-	applymovement OAKSLAB_BLUE1, BlueLeaveOaksLabRightMovement
-	disappear OAKSLAB_BLUE1
+	applymovement OAKSLAB_BLUE, BlueLeaveOaksLabRightMovement
+	disappear OAKSLAB_BLUE
 	special HealParty
 	playmapmusic
 	end
 .OnRight2:
-	applymovement OAKSLAB_BLUE1, BlueLeaveOaksLabLeftMovement
-	disappear OAKSLAB_BLUE1
+	applymovement OAKSLAB_BLUE, BlueLeaveOaksLabLeftMovement
+	disappear OAKSLAB_BLUE
 	special HealParty
 	playmapmusic
 .NoBattle:
 	end
+
+.Left:
+	slow_step LEFT
+	step_end
 
 OakDontGoScript:
 	opentext
 	writetext OakDontGoText
 	waitbutton
 	closetext
-	applymovement PLAYER, UpMovement
+	applymovement PLAYER, .Up
 	end
+
+.Up:
+	slow_step UP
+	step_end
 
 OaksAssistant1Script:
 	jumptextfaceplayer OaksAssistant1Text
@@ -459,22 +491,6 @@ OaksLabPC:
 
 PokedexScript:
 	jumptext PokedexText
-
-DownMovement:
-	slow_step DOWN
-	step_end
-	
-UpMovement:
-	slow_step UP
-	step_end
-	
-LeftMovement:
-	slow_step LEFT
-	step_end
-	
-RightMovement:
-	slow_step RIGHT
-	step_end
 
 BlueToSquirtleMovement:
 	slow_step DOWN
@@ -1011,13 +1027,12 @@ OaksLab_MapEvents:
 ;	bg_event  9,  3, BGEVENT_READ, OaksLabTrashcan
 	bg_event  0,  1, BGEVENT_READ, OaksLabPC
 
-	db 11 ; object events
+	db 10 ; object events
 	object_event  5,  2, SPRITE_OAK, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Oak, -1
 	object_event  2, 10, SPRITE_SCIENTIST, SPRITEMOVEDATA_SPINRANDOM_SLOW, 1, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, OaksAssistant1Script, -1
 	object_event  8, 10, SPRITE_SCIENTIST, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, OaksAssistant1Script, -1
 	object_event  1,  9, SPRITE_GIRL, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OaksAssistant3Script, -1
 	object_event  4,  3, SPRITE_BLUE, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OaksLabBlue, EVENT_GOT_A_POKEMON_FROM_OAK
-	object_event 15, 15, SPRITE_BLUE, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OaksLabBlue, -1
 	object_event  6,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CharmanderPokeBallScript, EVENT_CHARMANDER_POKEBALL_IN_OAKS_LAB
 	object_event  7,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SquirtlePokeBallScript, EVENT_SQUIRTLE_POKEBALL_IN_OAKS_LAB
 	object_event  8,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BulbasaurPokeBallScript, EVENT_BULBASAUR_POKEBALL_IN_OAKS_LAB

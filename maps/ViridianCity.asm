@@ -1,32 +1,94 @@
 	object_const_def ; object_event constants
-	const VIRIDIANCITY_GRAMPS1
-	const VIRIDIANCITY_GRAMPS2
+	const VIRIDIANCITY_CAF_FIEND1
+	const VIRIDIANCITY_CAF_FIEND2
+	const VIRIDIANCITY_GRAMPS
 	const VIRIDIANCITY_FISHER
 	const VIRIDIANCITY_YOUNGSTER
 
 ViridianCity_MapScripts:
-	db 0 ; scene scripts
+	db 2 ; scene scripts
+	scene_script .CafFiendNeedCoffee ; SCENE_DEFAULT
+	scene_script .CafFiendGotCoffee ; SCENE_FINISHED
 
 	db 1 ; callbacks
 	callback MAPCALLBACK_NEWMAP, .FlyPoint
+
+.CafFiendNeedCoffee:
+	checkflag ENGINE_POKEDEX
+	iftrue .CafFiendGotCoffee
+	disappear VIRIDIANCITY_CAF_FIEND2
+	end
+	
+.CafFiendGotCoffee:
+	setscene SCENE_FINISHED
+	disappear VIRIDIANCITY_CAF_FIEND1
+	end
 
 .FlyPoint:
 	setflag ENGINE_FLYPOINT_VIRIDIAN
 	return
 
-ViridianCityCoffeeGramps:
+ViridianCityCafFiendNoPass:
+	checkflag ENGINE_POKEDEX
+	iftrue .done
+	opentext
+	writetext ViridianCityCafFiendNoCoffeeText
+	waitbutton
+	closetext
+	applymovement PLAYER, .Down
+.done:
+	end
+
+.Down:
+	step DOWN
+	step_end
+
+ViridianCityCafFiendScript:
+	checkflag ENGINE_POKEDEX
+	iffalse .NeedCoffee
 	faceplayer
 	opentext
-	writetext ViridianCityCoffeeGrampsQuestionText
+	writetext ViridianCityCafFiendYesCoffeeText
 	yesorno
-	iffalse .no
-	writetext ViridianCityCoffeeGrampsBelievedText
+	iffalse .Tutorial
+	writetext ViridianCityCafFiendHurryText
+	waitbutton
+	closetext
+	end
+.NeedCoffee:
+	opentext
+	writetext ViridianCityCafFiendNoCoffeeText
+	waitbutton
+	closetext
+	applymovement PLAYER, .Down
+	end
+.Tutorial
+	writetext ViridianCityCafFiendTutorial1Text
+	waitbutton
+	closetext
+	loadwildmon WEEDLE, 5
+	catchtutorial BATTLETYPE_TUTORIAL
+	opentext
+	writetext ViridianCityCafFiendTutorial2Text
 	waitbutton
 	closetext
 	end
 
-.no:
-	writetext ViridianCityCoffeeGrampsDoubtedText
+.Down:
+	step DOWN
+	step_end
+
+ViridianCityGirlScript:
+	faceplayer
+	opentext
+	checkflag ENGINE_POKEDEX
+	iftrue .GotCoffee
+	writetext ViridianCityGirlNoCoffeeText
+	waitbutton
+	closetext
+	end
+.GotCoffee:
+	writetext ViridianCityGirlYesCoffeeText
 	waitbutton
 	closetext
 	end
@@ -64,8 +126,24 @@ ViridianCityDreamEaterFisher:
 	closetext
 	end
 
-ViridianCityYoungsterScript:
-	jumptextfaceplayer ViridianCityYoungsterText
+ViridianCityYoungster1Script:
+	jumptextfaceplayer ViridianCityYoungster1Text
+
+ViridianCityYoungster2Script:
+	faceplayer
+	opentext
+	writetext ViridianCityYoungster21Text
+	yesorno
+	iffalse .No
+	writetext ViridianCityYoungster22Text
+	waitbutton
+	closetext
+	end
+.No:
+	writetext ViridianCityYoungster23Text
+	waitbutton
+	closetext
+	end
 
 ViridianCitySign:
 	jumptext ViridianCitySignText
@@ -73,8 +151,11 @@ ViridianCitySign:
 ViridianGymSign:
 	jumptext ViridianGymSignText
 
-ViridianCityWelcomeSign:
-	jumptext ViridianCityWelcomeSignText
+ViridianCityTrainerTipSign1:
+	jumptext ViridianCityTrainerTipSign1Text
+
+ViridianCityTrainerTipSign2:
+	jumptext ViridianCityTrainerTipSign2Text
 
 TrainerHouseSign:
 	jumptext TrainerHouseSignText
@@ -85,55 +166,75 @@ ViridianCityPokecenterSign:
 ViridianCityMartSign:
 	jumpstd martsign
 
-ViridianCityCoffeeGrampsQuestionText:
-	text "Hey, kid! I just"
-	line "had a double shot"
+ViridianCityCafFiendNoCoffeeText:
+	text "You can't go"
+	line "through there!"
 
-	para "of espresso, and"
-	line "I am wired!"
-
-	para "I need to talk to"
-	line "someone, so you'll"
-	cont "have to do!"
-
-	para "I might not look"
-	line "like much now, but"
-
-	para "I was an expert at"
-	line "catching #MON."
-
-	para "Do you believe me?"
+	para "This is private"
+	line "property!"
 	done
 
-ViridianCityCoffeeGrampsBelievedText:
-	text "Good, good. Yes, I"
-	line "was something out"
+ViridianCityCafFiendYesCoffeeText:
+	text "Ahh, I've had my"
+	line "coffee now and I"
+	cont "feel great!"
 
-	para "of the ordinary,"
-	line "let me tell you!"
+	para "Sure you can go"
+	line "through!"
+	
+	para "Are you in a"
+	line "hurry?"
 	done
 
-ViridianCityCoffeeGrampsDoubtedText:
-	text "What? You little"
-	line "whelp!"
+ViridianCityCafFiendHurryText:
+	text "Time is money..."
+	line "Go along then."
+	done
 
-	para "If I were just a"
-	line "bit younger, I'd"
+ViridianCityCafFiendTutorial1Text:
+	text "I see you're using"
+	line "a #DEX."
+	
+	para "When you catch a"
+	line "#MON, #DEX"
+	cont "is automatically"
+	cont "updated."
+	
+	para "What? Don't you"
+	line "know how to catch"
+	cont "#MON?"
+	
+	para "I'll show you"
+	line "how to then."
+	done
+	
+ViridianCityCafFiendTutorial2Text:
+	text "First, you need"
+	line "to weaken the"
+	cont "target #MON."
+	done
 
-	para "show you a thing"
-	line "or two. Humph!"
+ViridianCityGirlNoCoffeeText:
+	text "Oh Grandpa! Don't"
+	line "be so mean!"
+	cont "He hasn't had his"
+	cont "coffee yet."
+	done
+
+ViridianCityGirlYesCoffeeText:
+	text "When I go shop in"
+	line "PEWTER CITY, I"
+	cont "have to take the"
+	cont "winding trail in"
+	cont "VIRIDIAN FOREST."
 	done
 
 ViridianCityGrampsNearGymText:
-	text "This GYM didn't"
-	line "have a LEADER"
-	cont "until recently."
+	text "This #MON GYM"
+	line "is always closed."
 
-	para "A young man from"
-	line "PALLET became the"
-
-	para "LEADER, but he's"
-	line "often away."
+	para "I wonder who the"
+	line "leader is?"
 	done
 
 ViridianCityGrampsNearGymBlueReturnedText:
@@ -174,12 +275,35 @@ ViridianCityDreamEaterFisherGotDreamEaterText:
 	para "…Zzzzz…"
 	done
 
-ViridianCityYoungsterText:
-	text "I heard that there"
-	line "are many items on"
+ViridianCityYoungster1Text:
+	text "Those # BALLS"
+	line "at your waist!"
+	cont "You have #MON!"
 
-	para "the ground in"
-	line "VIRIDIAN FOREST."
+	para "It's great that"
+	line "you can carry and"
+	cont "use #MON any"
+	cont "time, anywhere!"
+	done
+
+ViridianCityYoungster21Text:
+	text "You want to know"
+	line "about the 2 kinds"
+	cont "of caterpillar"
+	cont "#MON?"
+	done
+
+ViridianCityYoungster22Text:
+	text "CATERPIE has no"
+	line "poison, but"
+	cont "WEEDLE does."
+	
+	para "Watch out for its"
+	line "POISON STING!"
+	done
+
+ViridianCityYoungster23Text:
+	text "Oh, OK then!"
 	done
 
 ViridianCitySignText:
@@ -192,18 +316,32 @@ ViridianCitySignText:
 ViridianGymSignText:
 	text "VIRIDIAN CITY"
 	line "#MON GYM"
-	cont "LEADER: …"
-
-	para "The rest of the"
-	line "text is illegible…"
 	done
 
-ViridianCityWelcomeSignText:
-	text "WELCOME TO"
-	line "VIRIDIAN CITY,"
+ViridianCityTrainerTipSign1Text:
+	text "TRAINER TIPS"
 
-	para "THE GATEWAY TO"
-	line "INDIGO PLATEAU"
+	para "Catch #MON"
+	line "and expand your"
+	cont "collection!"
+	
+	para "The more you have,"
+	line "the easier it is"
+	cont "to fight!"
+	done
+
+ViridianCityTrainerTipSign2Text:
+	text "TRAINER TIPS"
+
+	para "The battle moves"
+	line "of #MON are"
+	cont "limited by their"
+	cont "POWER POINTS, PP."
+	
+	para "To replenish PP,"
+	line "rest your tired"
+	cont "#MON at a"
+	cont "#MON CENTER!"
 	done
 
 TrainerHouseSignText:
@@ -223,18 +361,23 @@ ViridianCity_MapEvents:
 	warp_event 29, 19, VIRIDIAN_MART, 2
 	warp_event 23, 25, VIRIDIAN_POKECENTER_1F, 1
 
-	db 0 ; coord events
+	db 1 ; coord events
+	coord_event 19, 9, 0, ViridianCityCafFiendNoPass
 
-	db 6 ; bg events
+	db 7 ; bg events
 	bg_event 17, 17, BGEVENT_READ, ViridianCitySign
 	bg_event 27,  7, BGEVENT_READ, ViridianGymSign
-	bg_event 19,  1, BGEVENT_READ, ViridianCityWelcomeSign
+	bg_event 19,  1, BGEVENT_READ, ViridianCityTrainerTipSign1
+	bg_event 21, 29, BGEVENT_READ, ViridianCityTrainerTipSign2
 	bg_event 21, 15, BGEVENT_READ, TrainerHouseSign
 	bg_event 24, 25, BGEVENT_READ, ViridianCityPokecenterSign
 	bg_event 30, 19, BGEVENT_READ, ViridianCityMartSign
 
-	db 4 ; object events
-	object_event 18,  5, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianCityCoffeeGramps, -1
+	db 7 ; object events
+	object_event 18,  9, SPRITE_DECAF, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianCityCafFiendScript, -1
+	object_event 19,  5, SPRITE_GRAMPS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 3, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianCityCafFiendScript, -1
 	object_event 30,  8, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ViridianCityGrampsNearGym, -1
 	object_event  6, 23, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, ViridianCityDreamEaterFisher, -1
-	object_event 17, 21, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 3, 3, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ViridianCityYoungsterScript, -1
+	object_event 13, 20, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 5, 5, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ViridianCityYoungster1Script, -1
+	object_event 30, 25, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 5, 5, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ViridianCityYoungster2Script, -1
+	object_event 17,  9, SPRITE_GIRL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0,  ViridianCityGirlScript, -1

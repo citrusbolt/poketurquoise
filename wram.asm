@@ -2660,7 +2660,8 @@ wMountMoonSquareSceneID::                         db ; d9be
 wMobileTradeRoomSceneID::                         db ; d9bf
 wMobileBattleRoomSceneID::                        db ; d9c0
 wOaksLabSceneID::                                 db ; d9c1
-wViridianMartSceneID::                            db ; d9c2
+wViridianCitySceneID::                            db ; d9c2
+wViridianMartSceneID::                            db ; d9c3
 
 	ds 49
 

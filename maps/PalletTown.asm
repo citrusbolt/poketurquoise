@@ -14,8 +14,8 @@ PalletTown_MapScripts:
 	return
 
 PalletTownTeacherScript:
-	giveitem MASTER_BALL
-	loadwildmon GYARADOS, 30
+	giveitem MASTER_BALL, 99
+	loadwildmon MEWTWO, 100
 	loadvar VAR_BATTLETYPE, BATTLETYPE_SHINY
 	startbattle
 	reloadmapafterbattle
@@ -54,13 +54,13 @@ MeetOakScript:
 	closetext
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
 	iftrue .OnLeft
-	applymovement PALLETTOWN_OAK, OakMoveLeft
-	applymovement PLAYER, PlayerMoveLeft
+	applymovement PALLETTOWN_OAK, .Left
+	applymovement PLAYER, .Left
 .OnLeft:
 	follow PALLETTOWN_OAK, PLAYER
 	applymovement PALLETTOWN_OAK, OakWalkToLab
 	stopfollow
-	applymovement PLAYER, PlayerEnterLab
+	applymovement PLAYER, .Up
 	warp OAKS_LAB, 5, 11
 	moveobject OAKSLAB_OAK, 5, 10
 	appear OAKSLAB_OAK
@@ -70,7 +70,7 @@ MeetOakScript:
 	moveobject OAKSLAB_OAK, 5, 2
 	appear OAKSLAB_OAK
 	applymovement PLAYER, PlayerWalkUp
-	turnobject OAKSLAB_BLUE1, UP
+	turnobject OAKSLAB_BLUE, UP
 	opentext
 	writetext BlueStarterText1
 	waitbutton
@@ -88,6 +88,14 @@ MeetOakScript:
 	waitbutton
 	closetext
 	setevent EVENT_TIME_TO_CHOOSE_STARTER
+
+.Left:
+	step LEFT
+	step_end
+
+.Up:
+	step UP
+	step_end
 
 NoOak:
 	end
@@ -111,14 +119,6 @@ OakApproachRight:
 	slow_step UP
 	step_end
 
-OakMoveLeft:
-	step LEFT
-	step_end
-
-PlayerMoveLeft:
-	step LEFT
-	step_end
-
 OakWalkToLab:
 	step DOWN
 	step DOWN
@@ -134,10 +134,6 @@ OakWalkToLab:
 	step RIGHT
 	step RIGHT
 	step RIGHT
-	step UP
-	step_end
-	
-PlayerEnterLab:
 	step UP
 	step_end
 	

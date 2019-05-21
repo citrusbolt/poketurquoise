@@ -1,8 +1,8 @@
 	object_const_def ; object_event constants
 	const VIRIDIANPOKECENTER1F_NURSE
-	const VIRIDIANPOKECENTER1F_COOLTRAINER_M
-	const VIRIDIANPOKECENTER1F_COOLTRAINER_F
-	const VIRIDIANPOKECENTER1F_BUG_CATCHER
+	const VIRIDIANPOKECENTER1F_COOLTRAINER1
+	const VIRIDIANPOKECENTER1F_GENTLEMAN
+	const VIRIDIANPOKECENTER1F_COOLTRAINER2
 
 ViridianPokecenter1F_MapScripts:
 	db 0 ; scene scripts
@@ -12,34 +12,22 @@ ViridianPokecenter1F_MapScripts:
 ViridianPokecenter1FNurseScript:
 	jumpstd pokecenternurse
 
-ViridianPokecenter1FCooltrainerMScript:
-	faceplayer
-	opentext
-	checkevent EVENT_BLUE_IN_CINNABAR
-	iftrue .BlueReturned
-	writetext ViridianPokecenter1FCooltrainerMText
-	waitbutton
-	closetext
-	end
+ViridianPokecenter1FCooltrainer1Script:
+	jumptextfaceplayer ViridianPokecenter1FCooltrainer1Text
 
-.BlueReturned:
-	writetext ViridianPokecenter1FCooltrainerMText_BlueReturned
-	waitbutton
-	closetext
-	end
+ViridianPokecenter1FGentlemanScript:
+	jumptextfaceplayer ViridianPokecenter1FGentlemanText
 
-ViridianPokecenter1FCooltrainerFScript:
-	jumptextfaceplayer ViridianPokecenter1FCooltrainerFText
+ViridianPokecenter1FCooltrainer2Script:
+	jumptextfaceplayer ViridianPokecenter1FCooltrainer2Text
 
-ViridianPokecenter1FBugCatcherScript:
-	jumptextfaceplayer ViridianPokecenter1FBugCatcherText
-
-ViridianPokecenter1FCooltrainerMText:
-	text "Where in the world"
-	line "is VIRIDIAN's GYM"
-
-	para "LEADER? I wanted"
-	line "to challenge him."
+ViridianPokecenter1FCooltrainer1Text:
+	text "There's a #MON"
+	line "CENTER in every"
+	cont "town ahead."
+	
+	para "They don't charge"
+	line "any money either!"
 	done
 
 ViridianPokecenter1FCooltrainerMText_BlueReturned:
@@ -54,19 +42,19 @@ ViridianPokecenter1FCooltrainerMText_BlueReturned:
 	line "any underlings."
 	done
 
-ViridianPokecenter1FCooltrainerFText:
-	text "I heard that the"
-	line "GYM in CINNABAR is"
-	cont "gone."
+ViridianPokecenter1FGentlemanText:
+	text "You can use that"
+	line "PC in the corner."
 
-	para "I wonder what be-"
-	line "came of BLAINE,"
-	cont "the GYM LEADER."
+	para "The receptionist"
+	line "told me. So kind!"
 	done
 
-ViridianPokecenter1FBugCatcherText:
-	text "My dream is to be-"
-	line "come a GYM LEADER."
+ViridianPokecenter1FCooltrainer2Text:
+	text "#MON CENTERs"
+	line "heal your tired,"
+	cont "hurt or fainted"
+	cont "#MON!"
 	done
 
 ViridianPokecenter1F_MapEvents:
@@ -83,6 +71,6 @@ ViridianPokecenter1F_MapEvents:
 
 	db 4 ; object events
 	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianPokecenter1FNurseScript, -1
-	object_event  8,  4, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, ViridianPokecenter1FCooltrainerMScript, -1
-	object_event  5,  3, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ViridianPokecenter1FCooltrainerFScript, -1
-	object_event  1,  6, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ViridianPokecenter1FBugCatcherScript, -1
+	object_event  4,  3, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, ViridianPokecenter1FCooltrainer1Script, -1
+	object_event  7,  3, SPRITE_GENTLEMAN, SPRITEMOVEDATA_WALK_UP_DOWN, 2, 2, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ViridianPokecenter1FGentlemanScript, -1
+	object_event  0,  4, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ViridianPokecenter1FCooltrainer2Script, -1

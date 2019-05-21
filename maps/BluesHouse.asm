@@ -30,6 +30,7 @@ DaisyScript:
 	setflag ENGINE_MAP_CARD
 	setevent EVENT_GOT_MAP_FROM_DAISY
 	writetext DaisyGotMapText
+	playsound SFX_KEY_ITEM
 	waitbutton
 	closetext
 	end
