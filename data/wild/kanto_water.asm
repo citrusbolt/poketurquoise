@@ -10,9 +10,9 @@ KantoWaterWildMons:
 
 	map_id VERMILION_PORT
 	db 2 percent ; encounter rate
-	db 35, TENTACOOL
-	db 30, TENTACOOL
-	db 35, TENTACRUEL
+	db 5, TENTACOOL
+	db 10, TENTACOOL
+	db 15, TENTACOOL
 
 	map_id ROUTE_4
 	db 4 percent ; encounter rate
@@ -24,7 +24,7 @@ KantoWaterWildMons:
 	db 2 percent ; encounter rate
 	db 10, PSYDUCK
 	db 5, PSYDUCK
-	db 10, GOLDUCK
+	db 15, GOLDUCK
 
 	map_id ROUTE_9
 	db 4 percent ; encounter rate
@@ -40,33 +40,33 @@ KantoWaterWildMons:
 
 	map_id ROUTE_12
 	db 6 percent ; encounter rate
-	db 25, TENTACOOL
-	db 25, QUAGSIRE
-	db 25, TENTACRUEL
+	db 15, SLOWPOKE
+	db 15, TENTACOOL
+	db 20, SLOWBRO
 
 	map_id ROUTE_13
 	db 6 percent ; encounter rate
-	db 25, TENTACOOL
-	db 25, QUAGSIRE
-	db 25, TENTACRUEL
+	db 15, SLOWPOKE
+	db 15, TENTACOOL
+	db 20, SLOWBRO
 
 	map_id ROUTE_19
 	db 6 percent ; encounter rate
-	db 35, TENTACOOL
-	db 30, TENTACOOL
-	db 35, TENTACRUEL
+	db 5, TENTACOOL
+	db 15, TENTACOOL
+	db 30, TENTACRUEL
 
 	map_id ROUTE_20
 	db 6 percent ; encounter rate
-	db 35, TENTACOOL
-	db 30, TENTACOOL
-	db 35, TENTACRUEL
+	db 5, TENTACOOL
+	db 15, TENTACOOL
+	db 30, TENTACRUEL
 
 	map_id ROUTE_21
 	db 6 percent ; encounter rate
-	db 35, TENTACOOL
-	db 30, TENTACOOL
-	db 35, TENTACRUEL
+	db 5, TENTACOOL
+	db 15, TENTACOOL
+	db 30, TENTACRUEL
 
 	map_id ROUTE_22
 	db 2 percent ; encounter rate
@@ -106,9 +106,9 @@ KantoWaterWildMons:
 
 	map_id PALLET_TOWN
 	db 6 percent ; encounter rate
-	db 35, TENTACOOL
-	db 30, TENTACOOL
-	db 35, TENTACRUEL
+	db 5, TENTACOOL
+	db 10, TENTACOOL
+	db 15, TENTACOOL
 
 	map_id VIRIDIAN_CITY
 	db 2 percent ; encounter rate
@@ -124,9 +124,9 @@ KantoWaterWildMons:
 
 	map_id VERMILION_CITY
 	db 6 percent ; encounter rate
-	db 35, TENTACOOL
-	db 30, TENTACOOL
-	db 35, TENTACRUEL
+	db 5, TENTACOOL
+	db 15, TENTACOOL
+	db 30, TENTACRUEL
 
 	map_id CELADON_CITY
 	db 2 percent ; encounter rate
@@ -142,8 +142,8 @@ KantoWaterWildMons:
 
 	map_id CINNABAR_ISLAND
 	db 6 percent ; encounter rate
-	db 35, TENTACOOL
-	db 30, TENTACOOL
-	db 35, TENTACRUEL
+	db 5, TENTACOOL
+	db 15, TENTACOOL
+	db 30, TENTACRUEL
 
 	db -1 ; end

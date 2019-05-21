@@ -20,6 +20,7 @@ FishGroups:
 	fishgroup 50 percent + 1, .Qwilfish_Old,         .Qwilfish_Good,         .Qwilfish_Super
 	fishgroup 50 percent + 1, .Remoraid_Old,         .Remoraid_Good,         .Remoraid_Super
 	fishgroup 50 percent + 1, .Qwilfish_NoSwarm_Old, .Qwilfish_NoSwarm_Good, .Qwilfish_NoSwarm_Super
+	fishgroup 50 percent + 1, .Kanto_Old,            .Kanto_Good,            .Kanto_Super
 
 .Shore_Old:
 	db  70 percent + 1, MAGIKARP,   10
@@ -203,6 +204,25 @@ FishGroups:
 	db  70 percent,     time_group 7
 	db  90 percent + 1, MAGIKARP,   40
 	db 100 percent,     REMORAID,   40
+
+.Kanto_Old:
+	db 100 percent,     MAGIKARP,   10
+.Kanto_Good:
+	db  50 percent,     POLIWAG,    10
+	db 100 percent,     GOLDEEN,    10
+.Kanto_Super:
+	db  15 percent,     TENTACOOL,  20
+	db  25 percent,     PSYDUCK,    20
+	db  35 percent,     SLOWPOKE,   20
+	db  45 percent,     SHELLDER,   20
+	db  55 percent,     KRABBY,     20
+	db  65 percent,     HORSEA,     20
+	db  75 percent,     STARYU,     20
+	db  80 percent,     SLOWBRO,    25
+	db  85 percent,     KINGLER,    25
+	db  90 percent,     SEADRA,     25
+	db  95 percent,     POLIWHIRL,  25
+	db 100 percent,     SEAKING,    25
 
 TimeFishGroups:
 	;  day              nite
