@@ -3458,6 +3458,186 @@ BlueGroup:
 	db "<RIVAL>@", TRAINERTYPE_NORMAL
 	db  5, SQUIRTLE
 	db -1 ; end
+	
+	; BLUE (Bulbasaur 2)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db  9, PIDGEY
+	db  8, BULBASAUR
+	db -1 ; end
+
+	; BLUE (Charmander 2)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db  9, PIDGEY
+	db  8, CHARMANDER
+	db -1 ; end
+
+	; BLUE (Squirtle 2)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db  9, PIDGEY
+	db  8, SQUIRTLE
+	db -1 ; end
+
+	; BLUE (Bulbasaur 3)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 18, PIDGEOTTO
+	db 15, ABRA
+	db 15, RATTATA
+	db 17, BULBASAUR
+	db -1 ; end
+
+	; BLUE (Charmander 3)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 18, PIDGEOTTO
+	db 15, ABRA
+	db 15, RATTATA
+	db 17, CHARMANDER
+	db -1 ; end
+
+	; BLUE (Squirtle 3)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 18, PIDGEOTTO
+	db 15, ABRA
+	db 15, RATTATA
+	db 17, SQUIRTLE
+	db -1 ; end
+
+	; BLUE (Bulbasaur 4)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 19, PIDGEOTTO
+	db 16, RATICATE
+	db 18, KADABRA
+	db 20, IVYSAUR
+	db -1 ; end
+
+	; BLUE (Charmander 4)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 19, PIDGEOTTO
+	db 16, RATICATE
+	db 18, KADABRA
+	db 20, CHARMELEON
+	db -1 ; end
+
+	; BLUE (Squirtle 4)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 19, PIDGEOTTO
+	db 16, RATICATE
+	db 18, KADABRA
+	db 20, WARTORTLE
+	db -1 ; end
+
+	; BLUE (Bulbasaur 5)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 25, PIDGEOTTO
+	db 23, EXEGGCUTE
+	db 22, GYARADOS
+	db 20, KADABRA
+	db 25, IVYSAUR
+	db -1 ; end
+
+	; BLUE (Charmander 5)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 25, PIDGEOTTO
+	db 23, EXEGGCUTE
+	db 22, GYARADOS
+	db 20, KADABRA
+	db 25, CHARMELEON
+	db -1 ; end
+
+	; BLUE (Squirtle 5)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 25, PIDGEOTTO
+	db 23, EXEGGCUTE
+	db 22, GYARADOS
+	db 20, KADABRA
+	db 25, WARTORTLE
+	db -1 ; end
+
+	; BLUE (Bulbasaur 6)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 37, PIDGEOT
+	db 38, EXEGGCUTE
+	db 35, GYARADOS
+	db 35, ALAKAZAM
+	db 40, VENUSAUR
+	db -1 ; end
+
+	; BLUE (Charmander 6)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 37, PIDGEOT
+	db 38, EXEGGCUTE
+	db 35, GYARADOS
+	db 35, ALAKAZAM
+	db 40, CHARIZARD
+	db -1 ; end
+
+	; BLUE (Squirtle 6)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 37, PIDGEOT
+	db 38, EXEGGCUTE
+	db 35, GYARADOS
+	db 35, ALAKAZAM
+	db 40, BLASTOISE
+	db -1 ; end
+
+	; BLUE (Bulbasaur 7)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 47, PIDGEOT
+	db 45, RHYHORN
+	db 45, EXEGGCUTE
+	db 47, GYARADOS
+	db 50, ALAKAZAM
+	db 53, VENUSAUR
+	db -1 ; end
+
+	; BLUE (Charmander 7)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 47, PIDGEOT
+	db 45, RHYHORN
+	db 45, EXEGGCUTE
+	db 47, GYARADOS
+	db 50, ALAKAZAM
+	db 53, CHARIZARD
+	db -1 ; end
+
+	; BLUE (Squirtle 7)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 47, PIDGEOT
+	db 45, RHYHORN
+	db 45, EXEGGCUTE
+	db 47, GYARADOS
+	db 50, ALAKAZAM
+	db 53, BLASTOISE
+	db -1 ; end
+
+	; BLUE (Bulbasaur 8)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 61, PIDGEOT
+	db 59, ALAKAZAM
+	db 61, RHYHORN
+	db 61, EXEGGUTOR
+	db 63, GYARADOS
+	db 65, VENUSAUR
+	db -1 ; end
+
+	; BLUE (Charmander 8)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 61, PIDGEOT
+	db 59, ALAKAZAM
+	db 61, RHYHORN
+	db 61, EXEGGUTOR
+	db 63, GYARADOS
+	db 65, CHARIZARD
+	db -1 ; end
+
+	; BLUE (Squirtle 8)
+	db "<RIVAL>@", TRAINERTYPE_NORMAL
+	db 61, PIDGEOT
+	db 59, ALAKAZAM
+	db 61, RHYHORN
+	db 61, EXEGGUTOR
+	db 63, GYARADOS
+	db 65, BLASTOISE
+	db -1 ; end
 
 OfficerGroup:
 	; OFFICER (1)

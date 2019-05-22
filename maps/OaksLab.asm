@@ -208,7 +208,7 @@ Oak:
 	opentext
 	checkevent EVENT_GOT_OAKS_PARCEL
 	iftrue .OakGotParcel
-	checkevent EVENT_RIVAL_BATTLE_01
+	checkevent EVENT_RIVAL_OAKS_LAB
 	iftrue .OakFoughtRival
 	checkevent EVENT_GOT_A_POKEMON_FROM_OAK
 	iftrue .OakGotStarter
@@ -381,7 +381,7 @@ LeaveOaksLabRightScript:
 	end
 	
 BlueBattle01Script:
-	checkevent EVENT_RIVAL_BATTLE_01
+	checkevent EVENT_RIVAL_OAKS_LAB
 	iftrue .NoBattle
 	turnobject PLAYER, UP
 	opentext
@@ -433,7 +433,7 @@ BlueBattle01Script:
 	writetext OaksLabBlueAfterBattleText
 	waitbutton
 	closetext
-	setevent EVENT_RIVAL_BATTLE_01
+	setevent EVENT_RIVAL_OAKS_LAB
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
 	iffalse .OnRight2
 	applymovement OAKSLAB_BLUE, BlueLeaveOaksLabRightMovement
