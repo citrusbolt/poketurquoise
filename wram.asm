@@ -2662,6 +2662,7 @@ wMobileBattleRoomSceneID::                        db ; d9c0
 wOaksLabSceneID::                                 db ; d9c1
 wViridianCitySceneID::                            db ; d9c2
 wViridianMartSceneID::                            db ; d9c3
+wRoute22SceneID::                                 db ; d9c4
 
 	ds 49
 
