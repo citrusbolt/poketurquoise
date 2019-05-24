@@ -17,6 +17,7 @@ PrintLevel::
 
 PrintLevel_Force3Digits::
 ; Print :L and all 3 digits
+	ld a, [wTempMonLevel]
 	ld [hl], "<LV>"
 	inc hl
 	ld c, 3

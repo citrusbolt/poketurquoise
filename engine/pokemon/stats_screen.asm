@@ -388,14 +388,14 @@ StatsScreen_InitUpperHalf:
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
 	ld de, wDeciramBuffer
 	call PrintNum
-	hlcoord 14, 0
-	call PrintLevel
+	hlcoord 15, 0
+	call PrintLevel_Force3Digits
 	ld hl, .NicknamePointers
 	call GetNicknamePointer
 	call CopyNickname
 	hlcoord 8, 2
 	call PlaceString
-	hlcoord 18, 0
+	hlcoord 14, 0
 	call .PlaceGenderChar
 	hlcoord 9, 4
 	ld a, "/"
@@ -459,7 +459,7 @@ Unreferenced_Function4df7f:
 StatsScreen_PlaceHorizontalDivider:
 	hlcoord 0, 7
 	ld b, SCREEN_WIDTH
-	ld a, $62 ; horizontal divider (empty HP/exp bar)
+	ld a, $7a ; horizontal divider (empty HP/exp bar)
 .loop
 	ld [hli], a
 	dec b
@@ -539,7 +539,7 @@ StatsScreen_LoadGFX:
 	ld b, $0
 	predef DrawPlayerHP
 	hlcoord 8, 9
-	ld [hl], $41 ; right HP/exp bar end cap
+	ld [hl], $6b ; right HP/exp bar end cap
 	ld de, .Status_Type
 	hlcoord 0, 12
 	call PlaceString
@@ -586,7 +586,7 @@ StatsScreen_LoadGFX:
 	ld de, .ExpPointStr
 	hlcoord 10, 9
 	call PlaceString
-	hlcoord 17, 14
+	hlcoord 16, 14
 	call .PrintNextLevel
 	hlcoord 13, 10
 	lb bc, 3, 7
@@ -601,17 +601,19 @@ StatsScreen_LoadGFX:
 	hlcoord 10, 12
 	call PlaceString
 	ld de, .ToStr
-	hlcoord 14, 14
+	hlcoord 13, 14
 	call PlaceString
 	hlcoord 11, 16
 	ld a, [wTempMonLevel]
 	ld b, a
 	ld de, wTempMonExp + 2
 	predef FillInExpBar
-	hlcoord 10, 16
-	ld [hl], $40 ; left exp bar end cap
+	hlcoord 11, 16
+	ld [hl], $5c ; left exp bar end cap
+	hlcoord 12, 16
+	ld [hl], $61 ; left exp bar end cap
 	hlcoord 19, 16
-	ld [hl], $41 ; right exp bar end cap
+	ld [hl], $6b ; right exp bar end cap
 	ret
 
 .PrintNextLevel:
@@ -622,7 +624,7 @@ StatsScreen_LoadGFX:
 	inc a
 	ld [wTempMonLevel], a
 .AtMaxLevel:
-	call PrintLevel
+	call PrintLevel_Force3Digits
 	pop af
 	ld [wTempMonLevel], a
 	ret

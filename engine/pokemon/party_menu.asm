@@ -76,6 +76,7 @@ WritePartyMenuTilemap:
 	dw PlacePartyMonTMHMCompatibility
 	dw PlacePartyMonEvoStoneCompatibility
 	dw PlacePartyMonGender
+	dw PlacePartyMonGender2
 	dw PlacePartyMonMobileBattleSelection
 
 PlacePartyNicknames:
@@ -227,7 +228,7 @@ PlacePartyMonLevel:
 	ret z
 	ld c, a
 	ld b, 0
-	hlcoord 8, 2
+	hlcoord 4, 2
 .loop
 	push bc
 	push hl
@@ -241,12 +242,12 @@ PlacePartyMonLevel:
 	ld e, l
 	ld d, h
 	pop hl
-	ld a, [de]
-	cp 100 ; This is distinct from MAX_LEVEL.
-	jr nc, .ThreeDigits
+;	ld a, [de]
+;	cp 100 ; This is distinct from MAX_LEVEL.
+;	jr nc, .ThreeDigits
 	ld a, "<LV>"
 	ld [hli], a
-	lb bc, PRINTNUM_RIGHTALIGN | 1, 2
+	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
 	; jr .okay
 .ThreeDigits:
 	lb bc, PRINTNUM_RIGHTALIGN | 1, 3
@@ -269,7 +270,7 @@ PlacePartyMonStatus:
 	ret z
 	ld c, a
 	ld b, 0
-	hlcoord 5, 2
+	hlcoord 8, 2
 .loop
 	push bc
 	push hl
@@ -472,6 +473,54 @@ PlacePartyMonGender:
 
 .unknown
 	db "…UNKNOWN@"
+
+PlacePartyMonGender2:
+	ld a, [wPartyCount]
+	and a
+	ret z
+	ld c, a
+	ld b, 0
+	hlcoord 3, 2
+.loop
+	push bc
+	push hl
+	call PartyMenuCheckEgg
+	jr z, .next
+	ld [wCurPartySpecies], a
+	push hl
+	ld a, b
+	ld [wCurPartyMon], a
+	xor a
+	ld [wMonType], a
+	call GetGender
+	ld de, .unknown
+	jr c, .got_gender
+	ld de, .male
+	jr nz, .got_gender
+	ld de, .female
+
+.got_gender
+	pop hl
+	call PlaceString
+
+.next
+	pop hl
+	ld de, 2 * SCREEN_WIDTH
+	add hl, de
+	pop bc
+	inc b
+	dec c
+	jr nz, .loop
+	ret
+
+.male
+	db "♂@"
+
+.female
+	db "♀@"
+
+.unknown
+	db "@"
 
 PlacePartyMonMobileBattleSelection:
 	ld a, [wPartyCount]
