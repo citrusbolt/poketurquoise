@@ -20,14 +20,9 @@ ViridianMart_MapScripts:
 	opentext
 	writetext GetParcelText2
 	waitbutton
-	closetext
-	opentext
 	setevent EVENT_GOT_OAKS_PARCEL
 	setscene SCENE_FINISHED
-	giveitem OAKS_PARCEL
-	writetext GetParcelText3
-	playsound SFX_KEY_ITEM
-	waitbutton
+	verbosegiveitem OAKS_PARCEL
 	closetext
 
 	end
@@ -82,11 +77,6 @@ GetParcelText2:
 	para "His order came in."
 	line "Will you take it"
 	cont "to him?"
-	done
-	
-GetParcelText3:
-	text "<PLAYER> got"
-	line "OAK's PARCEL!"
 	done
 	
 SayHiToOakText:

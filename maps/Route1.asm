@@ -37,17 +37,12 @@ Route1MartAssistantScript:
 	iftrue .GotSample
 	writetext Route1MartAssistant1Text
 	waitbutton
-	closetext
-	opentext
-	writetext Route1MartAssistant2Text
-	giveitem POTION
-	playsound SFX_ITEM
+	verbosegiveitem POTION
 	setevent EVENT_GOT_POTION_SAMPLE
-	waitbutton
 	closetext
 	end
 .GotSample
-	writetext Route1MartAssistant3Text
+	writetext Route1MartAssistant2Text
 	waitbutton
 	closetext
 	end
@@ -75,11 +70,6 @@ Route1MartAssistant1Text:
 	done
 
 Route1MartAssistant2Text:
-	text "<PLAYER> got"
-	line "POTION!"
-	done
-
-Route1MartAssistant3Text:
 	text "We also carry"
 	line "# BALLS for"
 	cont "catching #MON!"
@@ -150,7 +140,7 @@ Route1_MapEvents:
 	db 1 ; bg events
 	bg_event  7, 27, BGEVENT_READ, Route1Sign
 
-	db 2 ; object events
+	db 3 ; object events
 	object_event  3, 24, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 3, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route1MartAssistantScript, -1
 	object_event  13, 13, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Route1YoungsterScript, -1
-;	object_event  3,  7, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route1FruitTree, -1
+	object_event  3,  8, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route1FruitTree, -1
