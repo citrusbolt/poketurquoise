@@ -437,12 +437,14 @@ BlueBattle01Script:
 	checkevent EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
 	iffalse .OnRight2
 	applymovement OAKSLAB_BLUE, BlueLeaveOaksLabRightMovement
+	playsound SFX_EXIT_BUILDING
 	disappear OAKSLAB_BLUE
 	special HealParty
 	playmapmusic
 	end
 .OnRight2:
 	applymovement OAKSLAB_BLUE, BlueLeaveOaksLabLeftMovement
+	playsound SFX_EXIT_BUILDING
 	disappear OAKSLAB_BLUE
 	special HealParty
 	playmapmusic
