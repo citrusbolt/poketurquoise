@@ -204,6 +204,12 @@ BattleCommand_BeatUpFailText:
 	and a
 	ret nz
 
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	jp z, PrintButItFailed
+
+	inc a
+	ld [wAttackMissed], a
 	jp PrintButItFailed
 
 GetBeatupMonLocation:

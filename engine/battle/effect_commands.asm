@@ -1408,6 +1408,8 @@ BattleCheckTypeMatchup:
 	and a
 	jr z, CheckTypeMatchup
 	ld hl, wBattleMonType1
+	ld a, BATTLE_VARS_MOVE_TYPE
+	call GetBattleVar ; preserves hl, de, and bc
 CheckTypeMatchup:
 ; There is an incorrect assumption about this function made in the AI related code: when
 ; the AI calls CheckTypeMatchup (not BattleCheckTypeMatchup), it assumes that placing the
@@ -1418,8 +1420,8 @@ CheckTypeMatchup:
 	push hl
 	push de
 	push bc
-	ld a, BATTLE_VARS_MOVE_TYPE
-	call GetBattleVar
+;	ld a, BATTLE_VARS_MOVE_TYPE
+;	call GetBattleVar
 	ld d, a
 	ld b, [hl]
 	inc hl
@@ -1881,7 +1883,18 @@ BattleCommand_EffectChance:
 
 	; BUG: 1/256 chance to fail even for a 100% effect chance,
 	; since carry is not set if BattleRandom == [hl] == 255
-	call BattleRandom
+	
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	scf ; Force RNG to be called
+	jr z, .nofix ; Don't apply fix in link battles, for compatibility
+ 	ld a, [hl]
+ 	sub 100 percent
+ 	; If chance was 100%, RNG won't be called (carry not set)
+ 	; Thus chance will be subtracted from 0, guaranteeing a carry
+.nofix
+ 	call c, BattleRandom
+
 	cp [hl]
 	pop hl
 	ret c
@@ -2115,6 +2128,8 @@ BattleCommand_FailureText:
 	cp EFFECT_DOUBLE_HIT
 	jr z, .multihit
 	cp EFFECT_POISON_MULTI_HIT
+	jr z, .multihit
+	cp EFFECT_BEAT_UP
 	jr z, .multihit
 	jp EndMoveEffect
 
@@ -2560,6 +2575,22 @@ DittoMetalPowder:
 .done
 	scf
 	rr c
+
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	jr z, .nofix
+	
+	ld a, HIGH(MAX_STAT_VALUE)
+	cp b
+	jr c, .cap
+	ret nz
+	ld a, LOW(MAX_STAT_VALUE)
+	cp c
+	ret nc
+
+.cap
+	ld bc, MAX_STAT_VALUE
+.nofix
 	ret
 
 BattleCommand_DamageStats:
@@ -2812,6 +2843,22 @@ SpeciesItemBoost:
 ; Double the stat
 	sla l
 	rl h
+	
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	jr z, .nofix
+	
+	ld a, HIGH(MAX_STAT_VALUE)
+	cp h
+	jr c, .cap
+	ret nz
+	ld a, LOW(MAX_STAT_VALUE)
+	cp l
+	ret nc
+
+.cap
+	ld hl, MAX_STAT_VALUE
+.nofix
 	ret
 
 EnemyAttackDamage:
@@ -5349,7 +5396,16 @@ BattleCommand_EndLoop:
 	ld a, BATTLE_VARS_SUBSTATUS3
 	call GetBattleVarAddr
 	res SUBSTATUS_IN_LOOP, [hl]
+	
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	jr z, .nofix
+	
+	ret
+
+.nofix
 	call BattleCommand_BeatUpFailText
+	call BattleCommand_RaiseSub
 	jp EndMoveEffect
 
 .not_triple_kick
@@ -6675,6 +6731,15 @@ INCLUDE "engine/battle/move_effects/thunder.asm"
 
 CheckHiddenOpponent:
 ; BUG: This routine is completely redundant and introduces a bug, since BattleCommand_CheckHit does these checks properly.
+
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	jr z, .nofix
+
+	xor a
+	ret
+
+.nofix
 	ld a, BATTLE_VARS_SUBSTATUS3_OPP
 	call GetBattleVar
 	and 1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND

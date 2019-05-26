@@ -3,6 +3,22 @@ BattleCommand_BellyDrum:
 ; This command is buggy because it raises the user's attack
 ; before checking that it has enough HP to use the move.
 ; Swap the order of these two blocks to fix.
+
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	jr z, .nofix
+
+	callfar GetHalfMaxHP
+	callfar CheckUserHasEnoughHP
+	jr nc, .failed
+
+	call BattleCommand_AttackUp2
+	ld a, [wAttackMissed]
+	and a
+	jr nz, .failed
+	jr .next
+
+.nofix
 	call BattleCommand_AttackUp2
 	ld a, [wAttackMissed]
 	and a
@@ -12,6 +28,7 @@ BattleCommand_BellyDrum:
 	callfar CheckUserHasEnoughHP
 	jr nc, .failed
 
+.next
 	push bc
 	call AnimateCurrentMove
 	pop bc

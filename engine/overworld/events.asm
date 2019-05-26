@@ -570,7 +570,7 @@ TryObjectEvent:
 	jp hl
 
 .nope
-	; pop bc
+	pop bc
 	xor a
 	ret
 

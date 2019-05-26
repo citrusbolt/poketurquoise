@@ -37,11 +37,23 @@ BattleCommand_Counter:
 	ret nc
 
 	; BUG: Move should fail with all non-damaging battle actions
+
+	ld a, [wLinkMode]
+	cp LINK_COLOSSEUM
+	jr z, .nofix
+
+	ld hl, wCurDamage
+	ld a, [hli]
+	or [hl]
+	jr z, .failed
+	jr .next
+
+.nofix
 	ld hl, wCurDamage
 	ld a, [hli]
 	or [hl]
 	ret z
-
+.next
 	ld a, [hl]
 	add a
 	ld [hld], a
@@ -56,4 +68,10 @@ BattleCommand_Counter:
 
 	xor a
 	ld [wAttackMissed], a
+	ret
+
+.failed
+	ld a, 1
+	ld [wEffectFailed], a
+	and a
 	ret

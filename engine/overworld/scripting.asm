@@ -1450,10 +1450,15 @@ ScriptCall:
 ; to wScriptDelay, causing the script to return to the rst/interrupt
 ; space.
 
-	push de
 	ld hl, wScriptStackSize
-	ld e, [hl]
+	ld a, [hl]
+	cp 5
+	ret nc
+	push de
+;	ld hl, wScriptStackSize
+;	ld e, [hl]
 	inc [hl]
+	ld e, a
 	ld d, 0
 	ld hl, wScriptStack
 	add hl, de
