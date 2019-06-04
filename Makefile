@@ -1,4 +1,4 @@
-roms := pokecrystal.gbc pokecrystal11.gbc pokecrystal-au.gbc
+roms := pokecrystal.gbc poketurquoise.gbc pokecrystal-au.gbc
 
 crystal_obj := \
 audio.o \
@@ -43,9 +43,9 @@ RGBLINK ?= $(RGBDS)rgblink
 .PRECIOUS:
 .SECONDARY:
 
-all: crystal
+all: crystal11
 crystal: pokecrystal.gbc
-crystal11: pokecrystal11.gbc
+crystal11: poketurquoise.gbc
 crystal-au: pokecrystal-au.gbc
 
 clean:
@@ -95,10 +95,10 @@ pokecrystal.gbc: $(crystal_obj) pokecrystal.link
 	$(RGBFIX) -Cjv -i BYTE -k 01 -l 0x33 -m 0x10 -p 0 -r 3 -t PM_CRYSTAL $@
 	tools/sort_symfile.sh pokecrystal.sym
 
-pokecrystal11.gbc: $(crystal11_obj) pokecrystal.link
-	$(RGBLINK) -n pokecrystal11.sym -m pokecrystal11.map -l pokecrystal.link -o $@ $(crystal11_obj)
+poketurquoise.gbc: $(crystal11_obj) pokecrystal.link
+	$(RGBLINK) -n poketurquoise.sym -m poketurquoise.map -l pokecrystal.link -o $@ $(crystal11_obj)
 	$(RGBFIX) -Cjv -i BYTE -k 01 -l 0x33 -m 0x10 -n 1 -p 0 -r 3 -t PM_CRYSTAL $@
-	tools/sort_symfile.sh pokecrystal11.sym
+	tools/sort_symfile.sh poketurquoise.sym
 
 pokecrystal-au.gbc: $(crystal_au_obj) pokecrystal.link
 	$(RGBLINK) -n pokecrystal-au.sym -m pokecrystal-au.map -l pokecrystal.link -o $@ $(crystal_au_obj)
