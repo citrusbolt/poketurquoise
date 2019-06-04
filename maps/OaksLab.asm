@@ -201,6 +201,7 @@ LookAtOakLastPokeBallScript:
 	end
 
 DidntChooseOakStarterScript:
+	closetext
 	end
 
 Oak:
