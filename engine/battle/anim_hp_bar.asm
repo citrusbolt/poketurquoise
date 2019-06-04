@@ -257,7 +257,7 @@ HPBarAnim_UpdateHPRemaining:
 	jr .loaded_de
 
 .load_15
-	ld de, SCREEN_WIDTH + 1
+	ld de, 1 - SCREEN_WIDTH
 .loaded_de
 	push hl
 	add hl, de
