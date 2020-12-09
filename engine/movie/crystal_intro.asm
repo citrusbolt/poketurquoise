@@ -159,7 +159,7 @@ PlaceGameFreakPresents_1:
 
 .GAME_FREAK:
 	;  G  A  M  E   _  F  R  E  A  K
-	db 0, 1, 2, 3, 13, 4, 5, 3, 1, 6
+	db 0, 1, 2, 3, 4, 5, 3, 6, 3, 13
 .end
 	db "@"
 
